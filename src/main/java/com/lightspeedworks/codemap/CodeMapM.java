@@ -3,22 +3,22 @@
  */
 package com.lightspeedworks.codemap;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * character code map {文字コードマッピング}
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMapHashMap implements ICodeMap {
+public class CodeMapM<M extends Map<Integer, Integer>> implements ICodeMap {
 	static final int NOT_FOUND = -1;
-	HashMap<Integer, Integer> map = null;
+	M map = null;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
-	public CodeMapHashMap() {
-		map = new HashMap<Integer, Integer>();
+	public CodeMapM(M map) {
+		this.map = map;
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class CodeMapHashMap implements ICodeMap {
 	 * @param value
 	 *            integer value {整数値}
 	 */
-	public CodeMapHashMap set(int index, int value) {
+	public CodeMapM<M> set(int index, int value) {
 		map.put(index, value);
 		return this;
 	}
@@ -49,6 +49,8 @@ public class CodeMapHashMap implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
+		// if (index < 0 || index >= list.size())
+		// throw new IndexOutOfBoundsException("");
 		try {
 			return map.get(index);
 		} catch (Exception e) {

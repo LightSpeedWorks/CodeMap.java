@@ -3,29 +3,30 @@
  */
 package com.lightspeedworks.codemap;
 
-import java.util.HashMap;
+import java.util.List;
+import java.lang.IndexOutOfBoundsException;
 
 /**
  * character code map {文字コードマッピング}
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMapHashMap implements ICodeMap {
+public class CodeMapL<L extends List<Integer>> implements ICodeMap {
 	static final int NOT_FOUND = -1;
-	HashMap<Integer, Integer> map = null;
+	L list = null;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
-	public CodeMapHashMap() {
-		map = new HashMap<Integer, Integer>();
+	public CodeMapL(L list) {
+		this.list = list;
 	}
 
 	/**
 	 * deletes character code mapping table {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		map.clear();
+		list.clear();
 	}
 
 	/**
@@ -36,8 +37,18 @@ public class CodeMapHashMap implements ICodeMap {
 	 * @param value
 	 *            integer value {整数値}
 	 */
-	public CodeMapHashMap set(int index, int value) {
-		map.put(index, value);
+	public CodeMapL<L> set(int index, int value) {
+		if (index < 0)
+			throw new IndexOutOfBoundsException("index = " + index);
+		int n = list.size();
+		if (index < n) {
+			list.set(index, value);
+		}
+		else {
+			for (int i = n; i < index; ++i)
+				list.add(NOT_FOUND);
+			list.add(value);
+		}
 		return this;
 	}
 
@@ -49,10 +60,10 @@ public class CodeMapHashMap implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		try {
-			return map.get(index);
-		} catch (Exception e) {
+		if (index < 0 || index >= list.size())
 			return NOT_FOUND;
-		}
+		// if (index < 0 || index >= list.size())
+		// throw new IndexOutOfBoundsException("");
+		return list.get(index);
 	}
 }

@@ -3,12 +3,14 @@
  */
 package com.lightspeedworks.codemap;
 
+import java.util.ArrayList;
+
 /**
  * character code map {文字コードマッピング}
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMapHashMapWorkMain {
+public class CodeMapLWorkMain {
 	static final int MAX_LOOP_COUNT = 0xffff;
 	static final int MAX_TEST_COUNT = 20;
 
@@ -18,7 +20,8 @@ public class CodeMapHashMapWorkMain {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CodeMapHashMap map = new CodeMapHashMap();
+		CodeMapL<ArrayList<Integer>> map = new CodeMapL<ArrayList<Integer>>(
+				new ArrayList<Integer>());
 
 		System.out.println("[0] = " + map.get(0));
 		map.set(0, 0);

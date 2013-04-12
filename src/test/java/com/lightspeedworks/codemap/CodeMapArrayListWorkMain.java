@@ -9,7 +9,7 @@ package com.lightspeedworks.codemap;
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMapArrayListWorkMain {
-	static final int MAX_LOOP_COUNT = 0xfff;
+	static final int MAX_LOOP_COUNT = 0xffff;
 	static final int MAX_TEST_COUNT = 20;
 
 	/**
@@ -23,7 +23,7 @@ public class CodeMapArrayListWorkMain {
 		System.out.println("[0] = " + map.get(0));
 		map.set(0, 0);
 		System.out.println("[0] = " + map.get(0));
-		map.delete();
+		map.clear();
 
 		for (int k = 0; k < MAX_TEST_COUNT; ++k) {
 			long startTime = System.currentTimeMillis();
@@ -34,7 +34,7 @@ public class CodeMapArrayListWorkMain {
 				if (i != map.get(i)) {
 					throw new Error("WRONG DATA");
 				}
-			//map.delete();
+			// map.delete();
 			for (int i = 0; i <= MAX_LOOP_COUNT; ++i)
 				map.set(i, i);
 			for (int i = 0; i <= MAX_LOOP_COUNT; ++i)
@@ -43,7 +43,8 @@ public class CodeMapArrayListWorkMain {
 				}
 
 			long deltaTime = System.currentTimeMillis() - startTime;
-			System.out.println(String.format("%02d: %6.3f", k, deltaTime/1000.0));
+			System.out.println(String.format("%02d: %6.3f", k,
+					deltaTime / 1000.0));
 		}
 	}
 }

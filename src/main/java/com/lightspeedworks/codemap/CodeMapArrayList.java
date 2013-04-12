@@ -10,49 +10,64 @@ import java.util.ArrayList;
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMapArrayList {
+public class CodeMapArrayList implements ICodeMap {
 	static final int NOT_FOUND = -1;
-	ArrayList<Integer> array = new ArrayList<Integer>();
+	ArrayList<Integer> list = null;
 
 	/**
-	 * creates character code mapping table
-	 * {文字コードマッピングテーブル作成}
+	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
 	public CodeMapArrayList() {
+		list = new ArrayList<Integer>();
 	}
 
 	/**
-	 * deletes character code mapping table
-	 * {文字コードマッピングテーブル削除}
+	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
-	public void delete() {
-		array.removeAll(array);
+	public CodeMapArrayList(int size) {
+		list = new ArrayList<Integer>(size);
 	}
 
 	/**
-	 * sets value to character code mapping table
-	 * {文字コードマッピングに値を設定}
+	 * deletes character code mapping table {文字コードマッピングテーブル削除}
+	 */
+	public void clear() {
+		list.clear();
+	}
+
+	/**
+	 * sets value to character code mapping table {文字コードマッピングに値を設定}
 	 *
-	 * @param index integer index {整数インデックス}
-	 * @param value integer value {整数値}
+	 * @param index
+	 *            integer index {整数インデックス}
+	 * @param value
+	 *            integer value {整数値}
 	 */
 	public CodeMapArrayList set(int index, int value) {
-		array.add(index, value);
+		if (index < 0)
+			throw new IndexOutOfBoundsException("index = " + index);
+		int n = list.size();
+		if (index < n) {
+			list.set(index, value);
+		}
+		else {
+			for (int i = n; i < index; ++i)
+				list.add(NOT_FOUND);
+			list.add(value);
+		}
 		return this;
 	}
 
 	/**
-	 * gets value from character code mapping table
-	 * {文字コードマッピングの値を取得}
+	 * gets value from character code mapping table {文字コードマッピングの値を取得}
 	 *
-	 * @param index integer index {整数インデックス}
+	 * @param index
+	 *            integer index {整数インデックス}
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		if (index < 0 || index >= array.size())
+		if (index < 0 || index >= list.size())
 			return NOT_FOUND;
-//		if (index < 0 || index >= array.size())
-//			throw new IndexOutOfBoundsException("");
-		return array.get(index);
+		return list.get(index);
 	}
 }

@@ -8,38 +8,56 @@ package com.lightspeedworks.codemap;
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMapT<T> implements ICodeMap {
+public class CodeMap4 implements ICodeMap {
 	static final int NOT_FOUND = -1;
 	static final int MAX_INDEX = 0x100;
-	T[][][][] map = null;
+	int[][][][] map = null;
+	int[][] map200 = null;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
-	public CodeMapT() {
+	public CodeMap4() {
 	}
 
 	/**
 	 * deletes character code mapping table {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
+		if (map200 != null) {
+			int[][] map2 = map200;
+			if (map2 != null) {
+				for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
+					int[] map3 = map2[i2];
+					if (map3 == null)
+						continue;
+					for (int i3 = 0; i3 < MAX_INDEX; ++i3)
+						map3[i3] = NOT_FOUND;
+					map2[i2] = null;
+				}
+			}
+			// if (map != null && map[0] != null && map[0][0] == map200)
+			// map[0][0] = null;
+			map200 = null;
+		}
+
 		if (map == null)
 			return;
 
 		for (int i0 = 0; i0 < MAX_INDEX; ++i0) {
-			T[][][] map1 = map[i0];
+			int[][][] map1 = map[i0];
 			if (map1 == null)
 				continue;
 			for (int i1 = 0; i1 < MAX_INDEX; ++i1) {
-				T[][] map2 = map1[i1];
+				int[][] map2 = map1[i1];
 				if (map2 == null)
 					continue;
 				for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
-					T[] map3 = map2[i2];
+					int[] map3 = map2[i2];
 					if (map3 == null)
 						continue;
 					for (int i3 = 0; i3 < MAX_INDEX; ++i3)
-						map3[i3] = null;
+						map3[i3] = NOT_FOUND;
 					map2[i2] = null;
 				}
 				map1[i1] = null;
@@ -57,55 +75,62 @@ public class CodeMapT<T> implements ICodeMap {
 	 * @param value
 	 *            integer value {整数値}
 	 */
-	@SuppressWarnings("unchecked")
-	public CodeMapT<T> set(int index, int value) {
-		int i0 = index >>> 24;
-		int i1 = (index >>> 16) & 0xff;
+	public CodeMap4 set(int index, int value) {
+		int i00 = (index >>> 16) & 0xffff;
 		int i2 = (index >>> 8) & 0xff;
 		int i3 = index & 0xff;
-		T[][][] map1;
-		T[][] map2;
-		T[] map3;
 
-		// String.format("CodeMap set[%02x %02x %02x %02x]= %04x\n", i0, i1, i2,
-		// i3, value);
+		if (i00 == 0) {
+			if (map200 == null) {
+				map200 = new int[MAX_INDEX][];
+				for (int i = 0; i < MAX_INDEX; ++i)
+					map200[i] = null;
+			}
+			int[] map3 = map200[i2];
+
+			if (map3 == null) {
+				map3 = map200[i2] = new int[MAX_INDEX];
+				for (int i = 0; i < MAX_INDEX; ++i)
+					map3[i] = NOT_FOUND;
+			}
+
+			map3[i3] = value;
+			return this;
+		}
 
 		if (map == null) {
-			map = (T[][][][]) new Object[MAX_INDEX][][][];
+			map = new int[MAX_INDEX][][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map[i] = null;
-			// System.out.println("0: map[0-255] allocated");
 		}
 
-		map1 = map[i0];
+		int i0 = index >>> 24;
+		int[][][] map1 = map[i0];
+
 		if (map1 == null) {
-			map[i0] = map1 = (T[][][]) new Object[MAX_INDEX][][];
+			map1 = map[i0] = new int[MAX_INDEX][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map1[i] = null;
-			// System.out.println("1: map[" + i0 + "][0-255] allocated");
 		}
 
-		map2 = map1[i1];
+		int i1 = (index >>> 16) & 0xff;
+		int[][] map2 = map1[i1];
+
 		if (map2 == null) {
-			map1[i1] = map2 = (T[][]) new Object[MAX_INDEX][];
+			map2 = map1[i1] = new int[MAX_INDEX][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map2[i] = null;
-			// System.out.println("2: map[" + i0 + "][" + i1 +
-			// "][0-255] allocated");
 		}
 
-		map3 = map2[i2];
+		int[] map3 = map2[i2];
+
 		if (map3 == null) {
-			map2[i2] = map3 = (T[]) new Object[MAX_INDEX];
+			map3 = map2[i2] = new int[MAX_INDEX];
 			for (int i = 0; i < MAX_INDEX; ++i)
-				map3[i] = null;
-			// System.out.println("3: map[" + i0 + "][" + i1 + "][" + i2 +
-			// "][0-255] allocated");
+				map3[i] = NOT_FOUND;
 		}
 
-		// System.out.println("4: map[" + i0 + "][" + i1 + "][" + i2 + "][" + i3
-		// + "]=" + value);
-		map3[i3] = (T) (Object) value;
+		map3[i3] = value;
 		return this;
 	}
 
@@ -117,35 +142,38 @@ public class CodeMapT<T> implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		int i0 = index >>> 24;
-		int i1 = (index >>> 16) & 0xff;
+		int i00 = (index >>> 16) & 0xffff;
 		int i2 = (index >>> 8) & 0xff;
 		int i3 = index & 0xff;
-		T[][][] map1;
-		T[][] map2;
-		T[] map3;
 
-		// String.format("CodeMap get[%02x %02x %02x %02x]\n", i0, i1, i2, i3);
+		if (i00 == 0) {
+			if (map200 == null)
+				return NOT_FOUND;
+
+			int[] map3 = map200[i2];
+			if (map3 == null)
+				return NOT_FOUND;
+
+			return map3[i3];
+		}
 
 		if (map == null)
 			return NOT_FOUND;
 
-		map1 = map[i0];
+		int i0 = index >>> 24;
+		int[][][] map1 = map[i0];
 		if (map1 == null)
 			return NOT_FOUND;
 
-		map2 = map1[i1];
+		int i1 = (index >>> 16) & 0xff;
+		int[][] map2 = map1[i1];
 		if (map2 == null)
 			return NOT_FOUND;
 
-		map3 = map2[i2];
+		int[] map3 = map2[i2];
 		if (map3 == null)
 			return NOT_FOUND;
 
-		T value = map3[i3];
-
-		// String.format("CodeMap get[%02x %02x %02x %02x]= %04x\n", i0, i1, i2,
-		// i3, value);
-		return (Integer) (Object) value;
+		return map3[i3];
 	}
 }
