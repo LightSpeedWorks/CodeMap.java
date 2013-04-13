@@ -36,8 +36,6 @@ public class CodeMap4 implements ICodeMap {
 					map2[i2] = null;
 				}
 			}
-			// if (map != null && map[0] != null && map[0][0] == map200)
-			// map[0][0] = null;
 			map200 = null;
 		}
 

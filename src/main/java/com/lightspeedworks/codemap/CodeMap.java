@@ -58,34 +58,33 @@ public class CodeMap implements ICodeMap {
 	 *            integer value {整数値}
 	 */
 	public CodeMap set(int index, int value) {
-		int i0 = index >>> 24;
-		int i1 = (index >>> 16) & 0xff;
-		int i2 = (index >>> 8) & 0xff;
-		int i3 = index & 0xff;
-		int[][][] map1;
-		int[][] map2;
-		int[] map3;
 
 		if (map == null) {
 			map = new int[MAX_INDEX][][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map[i] = null;
 		}
-		map1 = map[i0];
+
+		int i0 = index >>> 24;
+		int[][][] map1 = map[i0];
 
 		if (map1 == null) {
 			map1 = map[i0] = new int[MAX_INDEX][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map1[i] = null;
 		}
-		map2 = map1[i1];
+
+		int i1 = (index >>> 16) & 0xff;
+		int[][] map2 = map1[i1];
 
 		if (map2 == null) {
 			map2 = map1[i1] = new int[MAX_INDEX][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map2[i] = null;
 		}
-		map3 = map2[i2];
+
+		int i2 = (index >>> 8) & 0xff;
+		int[] map3 = map2[i2];
 
 		if (map3 == null) {
 			map3 = map2[i2] = new int[MAX_INDEX];
@@ -93,6 +92,7 @@ public class CodeMap implements ICodeMap {
 				map3[i] = NOT_FOUND;
 		}
 
+		int i3 = index & 0xff;
 		map3[i3] = value;
 		return this;
 	}
@@ -105,29 +105,25 @@ public class CodeMap implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		int i0 = index >>> 24;
-		int i1 = (index >>> 16) & 0xff;
-		int i2 = (index >>> 8) & 0xff;
-		int i3 = index & 0xff;
-		int[][][] map1;
-		int[][] map2;
-		int[] map3;
-
 		if (map == null)
 			return NOT_FOUND;
 
-		map1 = map[i0];
+		int i0 = index >>> 24;
+		int[][][] map1 = map[i0];
 		if (map1 == null)
 			return NOT_FOUND;
 
-		map2 = map1[i1];
+		int i1 = (index >>> 16) & 0xff;
+		int[][] map2 = map1[i1];
 		if (map2 == null)
 			return NOT_FOUND;
 
-		map3 = map2[i2];
+		int i2 = (index >>> 8) & 0xff;
+		int[] map3 = map2[i2];
 		if (map3 == null)
 			return NOT_FOUND;
 
+		int i3 = index & 0xff;
 		return map3[i3];
 	}
 }

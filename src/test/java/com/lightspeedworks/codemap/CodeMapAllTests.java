@@ -3,9 +3,9 @@
  */
 package com.lightspeedworks.codemap;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
-import java.util.ArrayList;
 
 /**
  * character code map {文字コードマッピング}
@@ -100,7 +100,7 @@ public class CodeMapAllTests {
 		map.clear();
 
 		long sum = 0;
-		long minTime = Integer.MAX_VALUE;
+		long minTime = Long.MAX_VALUE;
 		long maxTime = 0;
 
 		for (int k = 1; k <= MAX_TEST_COUNT; ++k) {
