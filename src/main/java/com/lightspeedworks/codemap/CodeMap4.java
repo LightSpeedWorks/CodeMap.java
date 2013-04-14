@@ -25,16 +25,13 @@ public class CodeMap4 implements ICodeMap {
 	 */
 	public void clear() {
 		if (map200 != null) {
-			int[][] map2 = map200;
-			if (map2 != null) {
-				for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
-					int[] map3 = map2[i2];
-					if (map3 == null)
-						continue;
-					for (int i3 = 0; i3 < MAX_INDEX; ++i3)
-						map3[i3] = NOT_FOUND;
-					map2[i2] = null;
-				}
+			for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
+				int[] map3 = map200[i2];
+				if (map3 == null)
+					continue;
+				for (int i3 = 0; i3 < MAX_INDEX; ++i3)
+					map3[i3] = NOT_FOUND;
+				map200[i2] = null;
 			}
 			map200 = null;
 		}
@@ -74,11 +71,10 @@ public class CodeMap4 implements ICodeMap {
 	 *            integer value {整数値}
 	 */
 	public CodeMap4 set(int index, int value) {
-		int i00 = (index >>> 16) & 0xffff;
 		int i2 = (index >>> 8) & 0xff;
 		int i3 = index & 0xff;
 
-		if (i00 == 0) {
+		if ((index >>> 16) == 0) {
 			if (map200 == null) {
 				map200 = new int[MAX_INDEX][];
 				for (int i = 0; i < MAX_INDEX; ++i)
@@ -104,7 +100,6 @@ public class CodeMap4 implements ICodeMap {
 
 		int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
-
 		if (map1 == null) {
 			map1 = map[i0] = new int[MAX_INDEX][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
@@ -113,7 +108,6 @@ public class CodeMap4 implements ICodeMap {
 
 		int i1 = (index >>> 16) & 0xff;
 		int[][] map2 = map1[i1];
-
 		if (map2 == null) {
 			map2 = map1[i1] = new int[MAX_INDEX][];
 			for (int i = 0; i < MAX_INDEX; ++i)
@@ -121,7 +115,6 @@ public class CodeMap4 implements ICodeMap {
 		}
 
 		int[] map3 = map2[i2];
-
 		if (map3 == null) {
 			map3 = map2[i2] = new int[MAX_INDEX];
 			for (int i = 0; i < MAX_INDEX; ++i)
@@ -140,11 +133,10 @@ public class CodeMap4 implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		int i00 = (index >>> 16) & 0xffff;
 		int i2 = (index >>> 8) & 0xff;
 		int i3 = index & 0xff;
 
-		if (i00 == 0) {
+		if ((index >>> 16) == 0) {
 			if (map200 == null)
 				return NOT_FOUND;
 

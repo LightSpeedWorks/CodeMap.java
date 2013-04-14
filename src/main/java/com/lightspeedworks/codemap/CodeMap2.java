@@ -46,23 +46,21 @@ public class CodeMap2 implements ICodeMap {
 	 *            integer value {整数値}
 	 */
 	public CodeMap2 set(int index, int value) {
-		int i0 = index >>> 16;
-		int i1 = index & 0xffff;
-		int[] map1;
-
 		if (map == null) {
 			map = new int[MAX_INDEX][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map[i] = null;
 		}
 
-		map1 = map[i0];
+		int i0 = index >>> 16;
+		int[] map1 = map[i0];
 		if (map1 == null) {
 			map1 = map[i0] = new int[MAX_INDEX];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map1[i] = NOT_FOUND;
 		}
 
+		int i1 = index & 0xffff;
 		map1[i1] = value;
 		return this;
 	}
@@ -75,17 +73,16 @@ public class CodeMap2 implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		int i0 = index >>> 16;
-		int i1 = index & 0xffff;
-		int[] map1;
 
 		if (map == null)
 			return NOT_FOUND;
 
-		map1 = map[i0];
+		int i0 = index >>> 16;
+		int[] map1 = map[i0];
 		if (map1 == null)
 			return NOT_FOUND;
 
+		int i1 = index & 0xffff;
 		return map1[i1];
 	}
 }

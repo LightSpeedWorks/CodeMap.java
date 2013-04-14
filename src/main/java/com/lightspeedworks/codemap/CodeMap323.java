@@ -55,32 +55,29 @@ public class CodeMap323 implements ICodeMap {
 	 *            integer value {整数値}
 	 */
 	public CodeMap323 set(int index, int value) {
-		int i0 = index >>> 20;
-		int i1 = (index >>> 12) & 0xff;
-		int i2 = index & 0xfff;
-		int[][] map1;
-		int[] map2;
-
 		if (map == null) {
 			map = new int[MAX_INDEX_ZERO][][];
 			for (int i = 0; i < MAX_INDEX_ZERO; ++i)
 				map[i] = null;
 		}
 
-		map1 = map[i0];
+		int i0 = index >>> 20;
+		int[][] map1 = map[i0];
 		if (map1 == null) {
 			map1 = map[i0] = new int[MAX_INDEX_ONE][];
 			for (int i = 0; i < MAX_INDEX_ONE; ++i)
 				map1[i] = null;
 		}
 
-		map2 = map1[i1];
+		int i1 = (index >>> 12) & 0xff;
+		int[] map2 = map1[i1];
 		if (map2 == null) {
 			map2 = map1[i1] = new int[MAX_INDEX_TWO];
 			for (int i = 0; i < MAX_INDEX_TWO; ++i)
 				map2[i] = NOT_FOUND;
 		}
 
+		int i2 = index & 0xfff;
 		map2[i2] = value;
 		return this;
 	}
@@ -93,23 +90,20 @@ public class CodeMap323 implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		int i0 = index >>> 20;
-		int i1 = (index >>> 12) & 0xff;
-		int i2 = index & 0xfff;
-		int[][] map1;
-		int[] map2;
-
 		if (map == null)
 			return NOT_FOUND;
 
-		map1 = map[i0];
+		int i0 = index >>> 20;
+		int[][] map1 = map[i0];
 		if (map1 == null)
 			return NOT_FOUND;
 
-		map2 = map1[i1];
+		int i1 = (index >>> 12) & 0xff;
+		int[] map2 = map1[i1];
 		if (map2 == null)
 			return NOT_FOUND;
 
+		int i2 = index & 0xfff;
 		return map2[i2];
 	}
 }

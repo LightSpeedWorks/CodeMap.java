@@ -83,21 +83,6 @@ public class CodeMap8 implements ICodeMap {
 	 *            integer value {整数値}
 	 */
 	public CodeMap8 set(int index, int value) {
-		int i0 = index >>> 28;
-		int i1 = (index >>> 24) & 0xf;
-		int i2 = (index >>> 20) & 0xf;
-		int i3 = (index >>> 16) & 0xf;
-		int i4 = (index >>> 12) & 0xf;
-		int i5 = (index >>> 8) & 0xf;
-		int i6 = (index >>> 4) & 0xf;
-		int i7 = index & 0xf;
-		int[][][][][][][] map1;
-		int[][][][][][] map2;
-		int[][][][][] map3;
-		int[][][][] map4;
-		int[][][] map5;
-		int[][] map6;
-		int[] map7;
 
 		if (map == null) {
 			map = new int[MAX_INDEX][][][][][][][];
@@ -105,55 +90,63 @@ public class CodeMap8 implements ICodeMap {
 				map[i] = null;
 		}
 
-		map1 = map[i0];
+		int i0 = index >>> 28;
+		int[][][][][][][] map1 = map[i0];
 		if (map1 == null) {
 			map1 = map[i0] = new int[MAX_INDEX][][][][][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map1[i] = null;
 		}
 
-		map2 = map1[i1];
+		int i1 = (index >>> 24) & 0xf;
+		int[][][][][][] map2 = map1[i1];
 		if (map2 == null) {
 			map2 = map1[i1] = new int[MAX_INDEX][][][][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map2[i] = null;
 		}
 
-		map3 = map2[i2];
+		int i2 = (index >>> 20) & 0xf;
+		int[][][][][] map3 = map2[i2];
 		if (map3 == null) {
 			map3 = map2[i2] = new int[MAX_INDEX][][][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map3[i] = null;
 		}
 
-		map4 = map3[i3];
+		int i3 = (index >>> 16) & 0xf;
+		int[][][][] map4 = map3[i3];
 		if (map4 == null) {
 			map4 = map3[i3] = new int[MAX_INDEX][][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map4[i] = null;
 		}
 
-		map5 = map4[i4];
+		int i4 = (index >>> 12) & 0xf;
+		int[][][] map5 = map4[i4];
 		if (map5 == null) {
 			map5 = map4[i4] = new int[MAX_INDEX][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map5[i] = null;
 		}
 
-		map6 = map5[i5];
+		int i5 = (index >>> 8) & 0xf;
+		int[][] map6 = map5[i5];
 		if (map6 == null) {
 			map6 = map5[i5] = new int[MAX_INDEX][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map6[i] = null;
 		}
 
-		map7 = map6[i6];
+		int i6 = (index >>> 4) & 0xf;
+		int[] map7 = map6[i6];
 		if (map7 == null) {
 			map7 = map6[i6] = new int[MAX_INDEX];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map7[i] = NOT_FOUND;
 		}
 
+		int i7 = index & 0xf;
 		map7[i7] = value;
 		return this;
 	}
@@ -166,53 +159,45 @@ public class CodeMap8 implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		int i0 = index >>> 28;
-		int i1 = (index >>> 24) & 0xf;
-		int i2 = (index >>> 20) & 0xf;
-		int i3 = (index >>> 16) & 0xf;
-		int i4 = (index >>> 12) & 0xf;
-		int i5 = (index >>> 8) & 0xf;
-		int i6 = (index >>> 4) & 0xf;
-		int i7 = index & 0xf;
-		int[][][][][][][] map1;
-		int[][][][][][] map2;
-		int[][][][][] map3;
-		int[][][][] map4;
-		int[][][] map5;
-		int[][] map6;
-		int[] map7;
-
 		if (map == null)
 			return NOT_FOUND;
 
-		map1 = map[i0];
+		int i0 = index >>> 28;
+		int[][][][][][][] map1 = map[i0];
 		if (map1 == null)
 			return NOT_FOUND;
 
-		map2 = map1[i1];
+		int i1 = (index >>> 24) & 0xf;
+		int[][][][][][] map2 = map1[i1];
 		if (map2 == null)
 			return NOT_FOUND;
 
-		map3 = map2[i2];
+		int i2 = (index >>> 20) & 0xf;
+		int[][][][][] map3 = map2[i2];
 		if (map3 == null)
 			return NOT_FOUND;
 
-		map4 = map3[i3];
+		int i3 = (index >>> 16) & 0xf;
+		int[][][][] map4 = map3[i3];
 		if (map4 == null)
 			return NOT_FOUND;
 
-		map5 = map4[i4];
+		int i4 = (index >>> 12) & 0xf;
+		int[][][] map5 = map4[i4];
 		if (map5 == null)
 			return NOT_FOUND;
 
-		map6 = map5[i5];
+		int i5 = (index >>> 8) & 0xf;
+		int[][] map6 = map5[i5];
 		if (map6 == null)
 			return NOT_FOUND;
 
-		map7 = map6[i6];
+		int i6 = (index >>> 4) & 0xf;
+		int[] map7 = map6[i6];
 		if (map7 == null)
 			return NOT_FOUND;
 
+		int i7 = index & 0xf;
 		return map7[i7];
 	}
 }

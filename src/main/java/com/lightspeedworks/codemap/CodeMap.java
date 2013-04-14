@@ -58,7 +58,6 @@ public class CodeMap implements ICodeMap {
 	 *            integer value {整数値}
 	 */
 	public CodeMap set(int index, int value) {
-
 		if (map == null) {
 			map = new int[MAX_INDEX][][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
@@ -67,7 +66,6 @@ public class CodeMap implements ICodeMap {
 
 		int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
-
 		if (map1 == null) {
 			map1 = map[i0] = new int[MAX_INDEX][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
@@ -76,7 +74,6 @@ public class CodeMap implements ICodeMap {
 
 		int i1 = (index >>> 16) & 0xff;
 		int[][] map2 = map1[i1];
-
 		if (map2 == null) {
 			map2 = map1[i1] = new int[MAX_INDEX][];
 			for (int i = 0; i < MAX_INDEX; ++i)
@@ -85,7 +82,6 @@ public class CodeMap implements ICodeMap {
 
 		int i2 = (index >>> 8) & 0xff;
 		int[] map3 = map2[i2];
-
 		if (map3 == null) {
 			map3 = map2[i2] = new int[MAX_INDEX];
 			for (int i = 0; i < MAX_INDEX; ++i)
