@@ -13,7 +13,7 @@ import java.util.TreeMap;
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMapAllTests {
-	static final int MAX_LOOP_COUNT = 0xffff;
+	static final int MAX_LOOP_COUNT = 0x10ffff;
 	static final int MAX_TEST_COUNT = 20;
 
 	/**
@@ -23,10 +23,11 @@ public class CodeMapAllTests {
 	 */
 	public static void main(String[] args) {
 		ICodeMap[] maps = {
-				new CodeMap323(),
-				new CodeMap4(),
-				new CodeMap2(),
 				new CodeMap3(),
+				new CodeMap2(),
+				new CodeMap323(),
+				new CodeMap31(),
+				new CodeMap4(),
 				new CodeMap(),
 				new CodeMap8(),
 				new CodeMapT<Integer>(),
@@ -41,10 +42,11 @@ public class CodeMapAllTests {
 				new CodeMapM<TreeMap<Integer, Integer>>(
 						new TreeMap<Integer, Integer>()) };
 		String[] titles = {
-				"CodeMap323",
-				"CodeMap4",
-				"CodeMap2",
 				"CodeMap3",
+				"CodeMap2",
+				"CodeMap323",
+				"CodeMap31",
+				"CodeMap4",
 				"CodeMap",
 				"CodeMap8",
 				"CodeMapT<Integer>",
@@ -58,8 +60,8 @@ public class CodeMapAllTests {
 		int loopCounts[] = { MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
 				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
 				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
-				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT };
-		boolean enables[] = { true, true, true, true, true, true, true,
+				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT };
+		boolean enables[] = { true, true, true, true, true, true, true, false,
 				false, false, false, false, false, false, false };
 
 		System.out.println(maps.length);
@@ -83,13 +85,13 @@ public class CodeMapAllTests {
 				test(maps[i], titles[i], loopCounts[i]);
 			}
 
-			System.out.println("### end ###");
+		System.out.println("### end ###");
 	}
 
 	public static void test(ICodeMap map, String title, int loopCount) {
 		// System.out.println("======================================================================");
 		System.out
-				.println(String.format("### %s ### (0x%x)", title, loopCount));
+				.println(String.format("### %s ### (0x%x) %s", title, loopCount, map.getClass().getName()));
 		int n;
 		n = map.get(0);
 		// System.out.println("[0] = " + n);
@@ -109,25 +111,22 @@ public class CodeMapAllTests {
 			for (int i = 0; i <= loopCount; ++i)
 				map.set(i, i);
 			for (int i = 0; i <= loopCount; ++i)
-				if (i != map.get(i)) {
-					throw new Error("WRONG DATA");
-				}
+				if (i != map.get(i))
+					throw new Error("WRONG DATA " + i);
 
 			for (int i = loopCount; i >= 0; --i)
 				map.set(i, i);
 			for (int i = loopCount; i >= 0; --i)
-				if (i != map.get(i)) {
-					throw new Error("WRONG DATA");
-				}
+				if (i != map.get(i))
+					throw new Error("WRONG DATA " + i);
 
 			map.clear();
 
 			for (int i = loopCount; i >= 0; --i)
 				map.set(i, i);
 			for (int i = loopCount; i >= 0; --i)
-				if (i != map.get(i)) {
-					throw new Error("WRONG DATA");
-				}
+				if (i != map.get(i))
+					throw new Error("WRONG DATA " + i);
 
 			long deltaTime = System.currentTimeMillis() - startTime;
 			if (minTime > deltaTime)
