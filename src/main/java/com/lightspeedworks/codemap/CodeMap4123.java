@@ -8,22 +8,30 @@ package com.lightspeedworks.codemap;
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMap4 implements ICodeMap {
+public class CodeMap4123 implements ICodeMap {
 	static final int NOT_FOUND = -1;
 	static final int MAX_INDEX = 0x100;
 	int[][][][] map = null;
+	int[][][] map10 = null;
 	int[][] map200 = null;
+	int[] map3000 = null;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
-	public CodeMap4() {
+	public CodeMap4123() {
 	}
 
 	/**
 	 * deletes character code mapping table {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
+		if (map3000 != null) {
+			for (int i3 = 0; i3 < MAX_INDEX; ++i3)
+				map3000[i3] = NOT_FOUND;
+			map3000 = null;
+		}
+
 		if (map200 != null) {
 			for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
 				int[] map3 = map200[i2];
@@ -34,6 +42,24 @@ public class CodeMap4 implements ICodeMap {
 				map200[i2] = null;
 			}
 			map200 = null;
+		}
+
+		if (map10 != null) {
+			for (int i1 = 0; i1 < MAX_INDEX; ++i1) {
+				int[][] map2 = map10[i1];
+				if (map2 == null)
+					continue;
+				for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
+					int[] map3 = map2[i2];
+					if (map3 == null)
+						continue;
+					for (int i3 = 0; i3 < MAX_INDEX; ++i3)
+						map3[i3] = NOT_FOUND;
+					map2[i2] = null;
+				}
+				map10[i1] = null;
+			}
+			map10 = null;
 		}
 
 		if (map == null)
@@ -70,9 +96,20 @@ public class CodeMap4 implements ICodeMap {
 	 * @param value
 	 *            integer value {整数値}
 	 */
-	public CodeMap4 set(int index, int value) {
-		int i2 = (index >>> 8) & 0xff;
+	public CodeMap4123 set(int index, int value) {
 		int i3 = index & 0xff;
+
+		if ((index >>> 8) == 0) {
+			if (map3000 == null) {
+				map3000 = new int[MAX_INDEX];
+				for (int i = 0; i < MAX_INDEX; ++i)
+					map3000[i] = NOT_FOUND;
+			}
+			map3000[i3] = value;
+			return this;
+		}
+
+		int i2 = (index >>> 8) & 0xff;
 
 		if ((index >>> 16) == 0) {
 			if (map200 == null) {
@@ -80,10 +117,38 @@ public class CodeMap4 implements ICodeMap {
 				for (int i = 0; i < MAX_INDEX; ++i)
 					map200[i] = null;
 			}
-			int[] map3 = map200[i2];
 
+			int[] map3 = map200[i2];
 			if (map3 == null) {
 				map3 = map200[i2] = new int[MAX_INDEX];
+				for (int i = 0; i < MAX_INDEX; ++i)
+					map3[i] = NOT_FOUND;
+			}
+
+			map3[i3] = value;
+			return this;
+		}
+
+		int i0 = index >>> 24;
+		int i1 = (index >>> 16) & 0xff;
+
+		if (i0 == 0) {
+			if (map10 == null) {
+				map10 = new int[MAX_INDEX][][];
+				for (int i = 0; i < MAX_INDEX; ++i)
+					map10[i] = null;
+			}
+
+			int[][] map2 = map10[i1];
+			if (map2 == null) {
+				map2 = map10[i1] = new int[MAX_INDEX][];
+				for (int i = 0; i < MAX_INDEX; ++i)
+					map2[i] = null;
+			}
+
+			int[] map3 = map2[i2];
+			if (map3 == null) {
+				map3 = map2[i2] = new int[MAX_INDEX];
 				for (int i = 0; i < MAX_INDEX; ++i)
 					map3[i] = NOT_FOUND;
 			}
@@ -98,7 +163,6 @@ public class CodeMap4 implements ICodeMap {
 				map[i] = null;
 		}
 
-		int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
 		if (map1 == null) {
 			map1 = map[i0] = new int[MAX_INDEX][][];
@@ -106,7 +170,6 @@ public class CodeMap4 implements ICodeMap {
 				map1[i] = null;
 		}
 
-		int i1 = (index >>> 16) & 0xff;
 		int[][] map2 = map1[i1];
 		if (map2 == null) {
 			map2 = map1[i1] = new int[MAX_INDEX][];
@@ -133,8 +196,16 @@ public class CodeMap4 implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		int i2 = (index >>> 8) & 0xff;
 		int i3 = index & 0xff;
+
+		if ((index >>> 8) == 0) {
+			if (map3000 == null)
+				return NOT_FOUND;
+
+			return map3000[i3];
+		}
+
+		int i2 = (index >>> 8) & 0xff;
 
 		if ((index >>> 16) == 0) {
 			if (map200 == null)
@@ -147,15 +218,31 @@ public class CodeMap4 implements ICodeMap {
 			return map3[i3];
 		}
 
+		int i0 = index >>> 24;
+		int i1 = (index >>> 16) & 0xff;
+
+		if (i0 == 0){
+			if (map10 == null)
+				return NOT_FOUND;
+
+			int[][] map2 = map10[i1];
+			if (map2 == null)
+				return NOT_FOUND;
+
+			int[] map3 = map2[i2];
+			if (map3 == null)
+				return NOT_FOUND;
+
+			return map3[i3];
+		}
+
 		if (map == null)
 			return NOT_FOUND;
 
-		int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
 		if (map1 == null)
 			return NOT_FOUND;
 
-		int i1 = (index >>> 16) & 0xff;
 		int[][] map2 = map1[i1];
 		if (map2 == null)
 			return NOT_FOUND;

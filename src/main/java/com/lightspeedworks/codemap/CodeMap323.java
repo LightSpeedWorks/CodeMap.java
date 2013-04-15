@@ -8,36 +8,23 @@ package com.lightspeedworks.codemap;
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMap31 implements ICodeMap {
+public class CodeMap323 implements ICodeMap {
 	static final int NOT_FOUND = -1;
-	static final int MAX_INDEX = 0x1000;
-	static final int MAX_INDEX_ZERO = 0x100;
+	static final int MAX_INDEX_ZERO = 0x1000;
+	static final int MAX_INDEX_ONE = 0x100;
+	static final int MAX_INDEX_TWO = 0x1000;
 	int[][][] map = null;
-	int[][] map10 = null;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
-	public CodeMap31() {
+	public CodeMap323() {
 	}
 
 	/**
 	 * deletes character code mapping table {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		if (map10 != null) {
-			for (int i1 = 0; i1 < MAX_INDEX; ++i1) {
-				int[] map2 = map10[i1];
-				if (map2 == null)
-					continue;
-				for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
-					map2[i2] = NOT_FOUND;
-				}
-				map10[i1] = null;
-			}
-			map10 = null;
-		}
-
 		if (map == null)
 			return;
 
@@ -45,11 +32,11 @@ public class CodeMap31 implements ICodeMap {
 			int[][] map1 = map[i0];
 			if (map1 == null)
 				continue;
-			for (int i1 = 0; i1 < MAX_INDEX; ++i1) {
+			for (int i1 = 0; i1 < MAX_INDEX_ONE; ++i1) {
 				int[] map2 = map1[i1];
 				if (map2 == null)
 					continue;
-				for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
+				for (int i2 = 0; i2 < MAX_INDEX_TWO; ++i2) {
 					map2[i2] = NOT_FOUND;
 				}
 				map1[i1] = null;
@@ -67,49 +54,30 @@ public class CodeMap31 implements ICodeMap {
 	 * @param value
 	 *            integer value {整数値}
 	 */
-	public CodeMap31 set(int index, int value) {
-		int i0 = index >>> 24;
-		int i1 = (index >>> 12) & 0xfff;
-		int i2 = index & 0xfff;
-
-		if (i0 == 0) {
-			if (map10 == null) {
-				map10 = new int[MAX_INDEX][];
-				for (int i = 0; i < MAX_INDEX; ++i)
-					map10[i] = null;
-			}
-
-			int[] map2 = map10[i1];
-			if (map2 == null) {
-				map2 = map10[i1] = new int[MAX_INDEX];
-				for (int i = 0; i < MAX_INDEX; ++i)
-					map2[i] = NOT_FOUND;
-			}
-
-			map2[i2] = value;
-			return this;
-		}
-
+	public CodeMap323 set(int index, int value) {
 		if (map == null) {
 			map = new int[MAX_INDEX_ZERO][][];
 			for (int i = 0; i < MAX_INDEX_ZERO; ++i)
 				map[i] = null;
 		}
 
+		int i0 = index >>> 20;
 		int[][] map1 = map[i0];
 		if (map1 == null) {
-			map1 = map[i0] = new int[MAX_INDEX][];
-			for (int i = 0; i < MAX_INDEX; ++i)
+			map1 = map[i0] = new int[MAX_INDEX_ONE][];
+			for (int i = 0; i < MAX_INDEX_ONE; ++i)
 				map1[i] = null;
 		}
 
+		int i1 = (index >>> 12) & 0xff;
 		int[] map2 = map1[i1];
 		if (map2 == null) {
-			map2 = map1[i1] = new int[MAX_INDEX];
-			for (int i = 0; i < MAX_INDEX; ++i)
+			map2 = map1[i1] = new int[MAX_INDEX_TWO];
+			for (int i = 0; i < MAX_INDEX_TWO; ++i)
 				map2[i] = NOT_FOUND;
 		}
 
+		int i2 = index & 0xfff;
 		map2[i2] = value;
 		return this;
 	}
@@ -122,32 +90,20 @@ public class CodeMap31 implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		int i0 = index >>> 24;
-		int i1 = (index >>> 12) & 0xfff;
-		int i2 = index & 0xfff;
-
-		if (i0 == 0) {
-			if (map10 == null)
-				return NOT_FOUND;
-
-			int[] map2 = map10[i1];
-			if (map2 == null)
-				return NOT_FOUND;
-
-			return map2[i2];
-		}
-
 		if (map == null)
 			return NOT_FOUND;
 
+		int i0 = index >>> 20;
 		int[][] map1 = map[i0];
 		if (map1 == null)
 			return NOT_FOUND;
 
+		int i1 = (index >>> 12) & 0xff;
 		int[] map2 = map1[i1];
 		if (map2 == null)
 			return NOT_FOUND;
 
+		int i2 = index & 0xfff;
 		return map2[i2];
 	}
 }
