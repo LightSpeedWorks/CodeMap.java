@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class CodeMapArrayList implements ICodeMap {
 	public static final int NOT_FOUND = -1;
-	ArrayList<Integer> list = null;
+	ArrayList<Integer> list;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}

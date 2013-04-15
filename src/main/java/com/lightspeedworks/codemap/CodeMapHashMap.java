@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class CodeMapHashMap implements ICodeMap {
 	public static final int NOT_FOUND = -1;
-	HashMap<Integer, Integer> map = null;
+	HashMap<Integer, Integer> map;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}

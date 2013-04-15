@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class CodeMapM<M extends Map<Integer, Integer>> implements ICodeMap {
 	public static final int NOT_FOUND = -1;
-	M map = null;
+	M map;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}

@@ -13,7 +13,7 @@ import java.lang.IndexOutOfBoundsException;
  */
 public class CodeMapL<L extends List<Integer>> implements ICodeMap {
 	public static final int NOT_FOUND = -1;
-	L list = null;
+	L list;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}

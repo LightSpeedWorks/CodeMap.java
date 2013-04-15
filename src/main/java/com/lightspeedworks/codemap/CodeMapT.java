@@ -11,12 +11,16 @@ package com.lightspeedworks.codemap;
 public class CodeMapT<T> implements ICodeMap {
 	public static final int NOT_FOUND = -1;
 	static final int MAX_INDEX = 0x100;
-	T[][][][] map = null;
+	T[][][][] map;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
+	@SuppressWarnings("unchecked")
 	public CodeMapT() {
+		map = (T[][][][]) new Object[MAX_INDEX][][][];
+		for (int i = 0; i < MAX_INDEX; ++i)
+			map[i] = null;
 	}
 
 	/**
@@ -67,22 +71,11 @@ public class CodeMapT<T> implements ICodeMap {
 		T[][] map2;
 		T[] map3;
 
-		// String.format("CodeMap set[%02x %02x %02x %02x]= %04x\n", i0, i1, i2,
-		// i3, value);
-
-		if (map == null) {
-			map = (T[][][][]) new Object[MAX_INDEX][][][];
-			for (int i = 0; i < MAX_INDEX; ++i)
-				map[i] = null;
-			// System.out.println("0: map[0-255] allocated");
-		}
-
 		map1 = map[i0];
 		if (map1 == null) {
 			map[i0] = map1 = (T[][][]) new Object[MAX_INDEX][][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map1[i] = null;
-			// System.out.println("1: map[" + i0 + "][0-255] allocated");
 		}
 
 		map2 = map1[i1];
@@ -90,8 +83,6 @@ public class CodeMapT<T> implements ICodeMap {
 			map1[i1] = map2 = (T[][]) new Object[MAX_INDEX][];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map2[i] = null;
-			// System.out.println("2: map[" + i0 + "][" + i1 +
-			// "][0-255] allocated");
 		}
 
 		map3 = map2[i2];
@@ -99,12 +90,8 @@ public class CodeMapT<T> implements ICodeMap {
 			map2[i2] = map3 = (T[]) new Object[MAX_INDEX];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map3[i] = null;
-			// System.out.println("3: map[" + i0 + "][" + i1 + "][" + i2 +
-			// "][0-255] allocated");
 		}
 
-		// System.out.println("4: map[" + i0 + "][" + i1 + "][" + i2 + "][" + i3
-		// + "]=" + value);
 		map3[i3] = (T) (Object) value;
 		return this;
 	}
@@ -125,11 +112,6 @@ public class CodeMapT<T> implements ICodeMap {
 		T[][] map2;
 		T[] map3;
 
-		// String.format("CodeMap get[%02x %02x %02x %02x]\n", i0, i1, i2, i3);
-
-		if (map == null)
-			return NOT_FOUND;
-
 		map1 = map[i0];
 		if (map1 == null)
 			return NOT_FOUND;
@@ -143,9 +125,6 @@ public class CodeMapT<T> implements ICodeMap {
 			return NOT_FOUND;
 
 		T value = map3[i3];
-
-		// String.format("CodeMap get[%02x %02x %02x %02x]= %04x\n", i0, i1, i2,
-		// i3, value);
 		return (Integer) (Object) value;
 	}
 }
