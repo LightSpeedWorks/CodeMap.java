@@ -8,20 +8,15 @@ package com.lightspeedworks.codemap;
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMap4 implements ICodeMap {
+public class CodeMap implements ICodeMap {
 	public static final int NOT_FOUND = -1;
 	static final int MAX_INDEX = 0x100;
 	int[][][][] map;
-	int[][] map200;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
-	public CodeMap4() {
-		map200 = new int[MAX_INDEX][];
-		for (int i = 0; i < MAX_INDEX; ++i)
-			map200[i] = null;
-
+	public CodeMap() {
 		map = new int[MAX_INDEX][][][];
 		for (int i = 0; i < MAX_INDEX; ++i)
 			map[i] = null;
@@ -31,15 +26,6 @@ public class CodeMap4 implements ICodeMap {
 	 * deletes character code mapping table {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
-			int[] map3 = map200[i2];
-			if (map3 == null)
-				continue;
-			for (int i3 = 0; i3 < MAX_INDEX; ++i3)
-				map3[i3] = NOT_FOUND;
-			map200[i2] = null;
-		}
-
 		for (int i0 = 0; i0 < MAX_INDEX; ++i0) {
 			int[][][] map1 = map[i0];
 			if (map1 == null)
@@ -70,23 +56,7 @@ public class CodeMap4 implements ICodeMap {
 	 * @param value
 	 *            integer value {整数値}
 	 */
-	public CodeMap4 set(int index, int value) {
-		int i2 = (index >>> 8) & 0xff;
-		int i3 = index & 0xff;
-
-		if ((index >>> 16) == 0) {
-			int[] map3 = map200[i2];
-
-			if (map3 == null) {
-				map3 = map200[i2] = new int[MAX_INDEX];
-				for (int i = 0; i < MAX_INDEX; ++i)
-					map3[i] = NOT_FOUND;
-			}
-
-			map3[i3] = value;
-			return this;
-		}
-
+	public CodeMap set(int index, int value) {
 		int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
 		if (map1 == null) {
@@ -103,6 +73,7 @@ public class CodeMap4 implements ICodeMap {
 				map2[i] = null;
 		}
 
+		int i2 = (index >>> 8) & 0xff;
 		int[] map3 = map2[i2];
 		if (map3 == null) {
 			map3 = map2[i2] = new int[MAX_INDEX];
@@ -110,6 +81,7 @@ public class CodeMap4 implements ICodeMap {
 				map3[i] = NOT_FOUND;
 		}
 
+		int i3 = index & 0xff;
 		map3[i3] = value;
 		return this;
 	}
@@ -122,17 +94,6 @@ public class CodeMap4 implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		int i2 = (index >>> 8) & 0xff;
-		int i3 = index & 0xff;
-
-		if ((index >>> 16) == 0) {
-			int[] map3 = map200[i2];
-			if (map3 == null)
-				return NOT_FOUND;
-
-			return map3[i3];
-		}
-
 		int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
 		if (map1 == null)
@@ -143,10 +104,12 @@ public class CodeMap4 implements ICodeMap {
 		if (map2 == null)
 			return NOT_FOUND;
 
+		int i2 = (index >>> 8) & 0xff;
 		int[] map3 = map2[i2];
 		if (map3 == null)
 			return NOT_FOUND;
 
+		int i3 = index & 0xff;
 		return map3[i3];
 	}
 }
