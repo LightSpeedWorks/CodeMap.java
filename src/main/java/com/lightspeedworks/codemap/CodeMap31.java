@@ -12,34 +12,41 @@ public class CodeMap31 implements ICodeMap {
 	static final int NOT_FOUND = -1;
 	static final int MAX_INDEX = 0x1000;
 	static final int MAX_INDEX_ZERO = 0x100;
-	int[][][] map = null;
-	int[][] map10 = null;
+	int[][][] map;
+	int[][] map10;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
 	public CodeMap31() {
+		map10 = new int[MAX_INDEX][];
+		for (int i = 0; i < MAX_INDEX; ++i)
+			map10[i] = null;
+
+		map = new int[MAX_INDEX_ZERO][][];
+		for (int i = 0; i < MAX_INDEX_ZERO; ++i)
+			map[i] = null;
 	}
 
 	/**
 	 * deletes character code mapping table {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		if (map10 != null) {
-			for (int i1 = 0; i1 < MAX_INDEX; ++i1) {
-				int[] map2 = map10[i1];
-				if (map2 == null)
-					continue;
-				for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
-					map2[i2] = NOT_FOUND;
-				}
-				map10[i1] = null;
+		// if (map10 != null) {
+		for (int i1 = 0; i1 < MAX_INDEX; ++i1) {
+			int[] map2 = map10[i1];
+			if (map2 == null)
+				continue;
+			for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
+				map2[i2] = NOT_FOUND;
 			}
-			map10 = null;
+			map10[i1] = null;
 		}
+		// map10 = null;
+		// }
 
-		if (map == null)
-			return;
+		// if (map == null)
+		// return;
 
 		for (int i0 = 0; i0 < MAX_INDEX_ZERO; ++i0) {
 			int[][] map1 = map[i0];
@@ -56,7 +63,7 @@ public class CodeMap31 implements ICodeMap {
 			}
 			map[i0] = null;
 		}
-		map = null;
+		// map = null;
 	}
 
 	/**
@@ -73,11 +80,11 @@ public class CodeMap31 implements ICodeMap {
 		int i2 = index & 0xfff;
 
 		if (i0 == 0) {
-			if (map10 == null) {
-				map10 = new int[MAX_INDEX][];
-				for (int i = 0; i < MAX_INDEX; ++i)
-					map10[i] = null;
-			}
+			// if (map10 == null) {
+			// map10 = new int[MAX_INDEX][];
+			// for (int i = 0; i < MAX_INDEX; ++i)
+			// map10[i] = null;
+			// }
 
 			int[] map2 = map10[i1];
 			if (map2 == null) {
@@ -90,11 +97,11 @@ public class CodeMap31 implements ICodeMap {
 			return this;
 		}
 
-		if (map == null) {
-			map = new int[MAX_INDEX_ZERO][][];
-			for (int i = 0; i < MAX_INDEX_ZERO; ++i)
-				map[i] = null;
-		}
+		// if (map == null) {
+		// map = new int[MAX_INDEX_ZERO][][];
+		// for (int i = 0; i < MAX_INDEX_ZERO; ++i)
+		// map[i] = null;
+		// }
 
 		int[][] map1 = map[i0];
 		if (map1 == null) {
@@ -127,8 +134,8 @@ public class CodeMap31 implements ICodeMap {
 		int i2 = index & 0xfff;
 
 		if (i0 == 0) {
-			if (map10 == null)
-				return NOT_FOUND;
+			// if (map10 == null)
+			// return NOT_FOUND;
 
 			int[] map2 = map10[i1];
 			if (map2 == null)
@@ -137,8 +144,8 @@ public class CodeMap31 implements ICodeMap {
 			return map2[i2];
 		}
 
-		if (map == null)
-			return NOT_FOUND;
+		// if (map == null)
+		// return NOT_FOUND;
 
 		int[][] map1 = map[i0];
 		if (map1 == null)

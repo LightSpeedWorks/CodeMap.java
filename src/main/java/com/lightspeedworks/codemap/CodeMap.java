@@ -11,20 +11,23 @@ package com.lightspeedworks.codemap;
 public class CodeMap implements ICodeMap {
 	static final int NOT_FOUND = -1;
 	static final int MAX_INDEX = 0x100;
-	int[][][][] map = null;
+	int[][][][] map;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
 	public CodeMap() {
+		map = new int[MAX_INDEX][][][];
+		for (int i = 0; i < MAX_INDEX; ++i)
+			map[i] = null;
 	}
 
 	/**
 	 * deletes character code mapping table {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		if (map == null)
-			return;
+		// if (map == null)
+		// return;
 
 		for (int i0 = 0; i0 < MAX_INDEX; ++i0) {
 			int[][][] map1 = map[i0];
@@ -46,7 +49,7 @@ public class CodeMap implements ICodeMap {
 			}
 			map[i0] = null;
 		}
-		map = null;
+		// map = null;
 	}
 
 	/**
@@ -58,11 +61,11 @@ public class CodeMap implements ICodeMap {
 	 *            integer value {整数値}
 	 */
 	public CodeMap set(int index, int value) {
-		if (map == null) {
-			map = new int[MAX_INDEX][][][];
-			for (int i = 0; i < MAX_INDEX; ++i)
-				map[i] = null;
-		}
+		// if (map == null) {
+		// map = new int[MAX_INDEX][][][];
+		// for (int i = 0; i < MAX_INDEX; ++i)
+		// map[i] = null;
+		// }
 
 		int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
@@ -101,8 +104,8 @@ public class CodeMap implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-		if (map == null)
-			return NOT_FOUND;
+		// if (map == null)
+		// return NOT_FOUND;
 
 		int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
