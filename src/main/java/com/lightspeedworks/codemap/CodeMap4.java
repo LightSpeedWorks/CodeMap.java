@@ -8,7 +8,7 @@ package com.lightspeedworks.codemap;
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMap implements ICodeMap {
+public class CodeMap4 implements ICodeMap {
 	public static final int NOT_FOUND = -1;
 	static final int MAX_INDEX = 0x100;
 	int[][][][] map;
@@ -16,7 +16,7 @@ public class CodeMap implements ICodeMap {
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
-	public CodeMap() {
+	public CodeMap4() {
 		map = new int[MAX_INDEX][][][];
 		for (int i = 0; i < MAX_INDEX; ++i)
 			map[i] = null;
@@ -56,7 +56,7 @@ public class CodeMap implements ICodeMap {
 	 * @param value
 	 *            integer value {整数値}
 	 */
-	public CodeMap set(int index, int value) {
+	public CodeMap4 set(int index, int value) {
 		int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
 		if (map1 == null) {

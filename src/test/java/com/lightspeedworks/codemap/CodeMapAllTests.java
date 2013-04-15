@@ -14,7 +14,7 @@ import java.util.TreeMap;
  */
 public class CodeMapAllTests {
 	static final int MAX_LOOP_COUNT = 0x10ffff; //0x10ffff;
-	static final int MAX_TEST_COUNT = 40;
+	static final int MAX_TEST_COUNT = 20;
 
 	/**
 	 * main
@@ -23,11 +23,12 @@ public class CodeMapAllTests {
 	 */
 	public static void main(String[] args) {
 		ICodeMap[] maps = {
-				new CodeMap3(),
-				new CodeMap31(),
-				new CodeMap2(),
-				new CodeMap4(),
 				new CodeMap(),
+				new CodeMap31(),
+				new CodeMap3(),
+				new CodeMap42(),
+				new CodeMap4(),
+				new CodeMap2(),
 				new CodeMap8(),
 				new CodeMapT<Integer>(),
 				new CodeMapArrayList(),
@@ -41,11 +42,12 @@ public class CodeMapAllTests {
 				new CodeMapM<TreeMap<Integer, Integer>>(
 						new TreeMap<Integer, Integer>()) };
 		String[] titles = {
-				"CodeMap3",
-				"CodeMap31",
-				"CodeMap2",
-				"CodeMap4",
 				"CodeMap",
+				"CodeMap31",
+				"CodeMap3",
+				"CodeMap42",
+				"CodeMap4",
+				"CodeMap2",
 				"CodeMap8",
 				"CodeMapT<Integer>",
 				"CodeMapArrayList",
@@ -58,29 +60,37 @@ public class CodeMapAllTests {
 		int loopCounts[] = { MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
 				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
 				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
-				MAX_LOOP_COUNT, MAX_LOOP_COUNT,
-				MAX_LOOP_COUNT };
-		boolean enables[] = { true, true, false, true, true,
-				false, false, false, false, false, false, false, false, false };
+				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT };
+		boolean enables[] = { true, true, true, true, true, false, false, false,
+				false, false, false, false, false, false, false };
 
 		System.out.println(maps.length);
 		System.out.println(titles.length);
 		System.out.println(loopCounts.length);
 		System.out.println(enables.length);
 
+		// for (int i = 0; i < enables.length; ++i)
+		// enables[i] = true;
+
+		int no = 0;
+
 		for (int i = 0; i < maps.length; ++i)
 			if (enables[i]) {
-				System.out.print("@" + i + ": ");
+				System.out.print((++no) + " @" + i + ": ");
 				test(maps[i], titles[i], loopCounts[i]);
-				System.out.print("@" + i + ": ");
+				System.out.print((++no) + " @" + i + ": ");
+				test(maps[i], titles[i], loopCounts[i]);
+				System.out.print((++no) + " @" + i + ": ");
 				test(maps[i], titles[i], loopCounts[i]);
 			}
 
 		for (int i = 0; i < maps.length; ++i)
 			if (enables[i]) {
-				System.out.print("@" + i + ": ");
+				System.out.print((++no) + " @" + i + ": ");
 				test(maps[i], titles[i], loopCounts[i]);
-				System.out.print("@" + i + ": ");
+				System.out.print((++no) + " @" + i + ": ");
+				test(maps[i], titles[i], loopCounts[i]);
+				System.out.print((++no) + " @" + i + ": ");
 				test(maps[i], titles[i], loopCounts[i]);
 			}
 
@@ -90,7 +100,7 @@ public class CodeMapAllTests {
 	public static void test(ICodeMap map, String title, int loopCount) {
 		// System.out.println("======================================================================");
 		System.out
-				.println(String.format("### %s ### (0x%x) %s", title, loopCount, map.getClass().getName()));
+				.print(String.format("### %s ### (0x%x) ", title, loopCount));
 		int n;
 		n = map.get(0);
 		// System.out.println("[0] = " + n);
@@ -141,7 +151,7 @@ public class CodeMapAllTests {
 				/ MAX_TEST_COUNT));
 		System.out.print(String.format("  min %6.3f", minTime / 1000.0));
 		System.out.println(String.format("  max %6.3f", maxTime / 1000.0));
-		System.out.println("======================================================================");
+		//System.out.println("======================================================================");
 
 		map.clear();
 		System.gc();
