@@ -11,21 +11,21 @@ package com.lightspeedworks.codemap;
 public class CodeMap2 implements ICodeMap {
 	static final int NOT_FOUND = -1;
 	static final int MAX_INDEX = 0x10000;
-	int[][] map = null;
+	int[][] map;
 
 	/**
 	 * creates character code mapping table {文字コードマッピングテーブル作成}
 	 */
 	public CodeMap2() {
+		map = new int[MAX_INDEX][];
+		for (int i = 0; i < MAX_INDEX; ++i)
+			map[i] = null;
 	}
 
 	/**
 	 * deletes character code mapping table {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		if (map == null)
-			return;
-
 		for (int i0 = 0; i0 < MAX_INDEX; ++i0) {
 			int[] map1 = map[i0];
 			if (map1 == null)
@@ -34,7 +34,6 @@ public class CodeMap2 implements ICodeMap {
 				map1[i1] = NOT_FOUND;
 			map[i0] = null;
 		}
-		map = null;
 	}
 
 	/**
@@ -46,12 +45,6 @@ public class CodeMap2 implements ICodeMap {
 	 *            integer value {整数値}
 	 */
 	public CodeMap2 set(int index, int value) {
-		if (map == null) {
-			map = new int[MAX_INDEX][];
-			for (int i = 0; i < MAX_INDEX; ++i)
-				map[i] = null;
-		}
-
 		int i0 = index >>> 16;
 		int[] map1 = map[i0];
 		if (map1 == null) {
@@ -73,10 +66,6 @@ public class CodeMap2 implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(int index) {
-
-		if (map == null)
-			return NOT_FOUND;
-
 		int i0 = index >>> 16;
 		int[] map1 = map[i0];
 		if (map1 == null)
