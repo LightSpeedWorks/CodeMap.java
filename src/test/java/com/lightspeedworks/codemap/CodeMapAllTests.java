@@ -13,8 +13,8 @@ import java.util.TreeMap;
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMapAllTests {
-	static final int MAX_LOOP_COUNT = 0x10ffff;
-	static final int MAX_TEST_COUNT = 20;
+	static final int MAX_LOOP_COUNT = 0x10ffff; //0x10ffff;
+	static final int MAX_TEST_COUNT = 40;
 
 	/**
 	 * main
@@ -23,10 +23,9 @@ public class CodeMapAllTests {
 	 */
 	public static void main(String[] args) {
 		ICodeMap[] maps = {
+				new CodeMap31(),
 				new CodeMap3(),
 				new CodeMap2(),
-				new CodeMap323(),
-				new CodeMap31(),
 				new CodeMap4(),
 				new CodeMap(),
 				new CodeMap8(),
@@ -42,10 +41,9 @@ public class CodeMapAllTests {
 				new CodeMapM<TreeMap<Integer, Integer>>(
 						new TreeMap<Integer, Integer>()) };
 		String[] titles = {
+				"CodeMap31",
 				"CodeMap3",
 				"CodeMap2",
-				"CodeMap323",
-				"CodeMap31",
 				"CodeMap4",
 				"CodeMap",
 				"CodeMap8",
@@ -60,9 +58,10 @@ public class CodeMapAllTests {
 		int loopCounts[] = { MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
 				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
 				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
-				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT };
-		boolean enables[] = { true, true, true, true, true, true, true, false,
-				false, false, false, false, false, false, false };
+				MAX_LOOP_COUNT, MAX_LOOP_COUNT,
+				MAX_LOOP_COUNT };
+		boolean enables[] = { true, true, true, true, true,
+				false, false, false, false, false, false, false, false, false };
 
 		System.out.println(maps.length);
 		System.out.println(titles.length);
