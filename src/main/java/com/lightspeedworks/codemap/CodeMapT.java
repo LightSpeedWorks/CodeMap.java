@@ -27,9 +27,6 @@ public class CodeMapT<T> implements ICodeMap {
 	 * deletes character code mapping table {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		if (map == null)
-			return;
-
 		for (int i0 = 0; i0 < MAX_INDEX; ++i0) {
 			T[][][] map1 = map[i0];
 			if (map1 == null)
@@ -50,7 +47,6 @@ public class CodeMapT<T> implements ICodeMap {
 			}
 			map[i0] = null;
 		}
-		map = null;
 	}
 
 	/**
