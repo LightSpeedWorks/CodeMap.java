@@ -12,7 +12,7 @@ import java.lang.IndexOutOfBoundsException;
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMapL<L extends List<Integer>> implements ICodeMap {
-	static final int NOT_FOUND = -1;
+	public static final int NOT_FOUND = -1;
 	L list = null;
 
 	/**

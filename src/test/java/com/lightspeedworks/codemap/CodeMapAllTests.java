@@ -23,8 +23,8 @@ public class CodeMapAllTests {
 	 */
 	public static void main(String[] args) {
 		ICodeMap[] maps = {
-				new CodeMap31(),
 				new CodeMap3(),
+				new CodeMap31(),
 				new CodeMap2(),
 				new CodeMap4(),
 				new CodeMap(),
@@ -41,8 +41,8 @@ public class CodeMapAllTests {
 				new CodeMapM<TreeMap<Integer, Integer>>(
 						new TreeMap<Integer, Integer>()) };
 		String[] titles = {
-				"CodeMap31",
 				"CodeMap3",
+				"CodeMap31",
 				"CodeMap2",
 				"CodeMap4",
 				"CodeMap",
@@ -60,7 +60,7 @@ public class CodeMapAllTests {
 				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
 				MAX_LOOP_COUNT, MAX_LOOP_COUNT,
 				MAX_LOOP_COUNT };
-		boolean enables[] = { true, true, true, true, true,
+		boolean enables[] = { true, true, false, true, true,
 				false, false, false, false, false, false, false, false, false };
 
 		System.out.println(maps.length);

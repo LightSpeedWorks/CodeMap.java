@@ -11,7 +11,7 @@ import java.util.HashMap;
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMapHashMap implements ICodeMap {
-	static final int NOT_FOUND = -1;
+	public static final int NOT_FOUND = -1;
 	HashMap<Integer, Integer> map = null;
 
 	/**

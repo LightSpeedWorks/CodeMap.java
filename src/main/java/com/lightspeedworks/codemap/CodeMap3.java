@@ -9,7 +9,7 @@ package com.lightspeedworks.codemap;
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMap3 implements ICodeMap {
-	static final int NOT_FOUND = -1;
+	public static final int NOT_FOUND = -1;
 	static final int MAX_INDEX_ZERO = 0x100;
 	static final int MAX_INDEX_ONE = 0x1000;
 	static final int MAX_INDEX_TWO = 0x1000;
