@@ -1,12 +1,12 @@
 CodeMap.java
 ==========================
 
-LightSpeedWorks pages {光速工房}
+LightSpeedWorks {光速工房}
 
-Character code mapping virtual array library for Java
+Character code mapping virtual array library for Java <br/>
 {文字コードマッピング仮想配列ライブラリ(Java向け)}
 
-[LightSpeedWorks/CodeMap.java#readme] (https://github.com/LightSpeedWorks/CodeMap.java#readme "LightSpeedWorks/CodeMap.java#readme")
+[LightSpeedWorks/CodeMap.java#readme] (https://github.com/LightSpeedWorks/CodeMap.java#readme)
 
 ## usage: {使用方法:}
 
