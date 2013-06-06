@@ -30,7 +30,7 @@ public class CodeMapAllTests {
 				new CodeMap4(),
 				new CodeMap2(),
 				new CodeMap8(),
-				new CodeMapT<Integer>(),
+				new CodeMapT4<Integer>(),
 				new CodeMapArrayList(),
 				new CodeMapArrayList(0x10000),
 				new CodeMapL<ArrayList<Integer>>(new ArrayList<Integer>()),
