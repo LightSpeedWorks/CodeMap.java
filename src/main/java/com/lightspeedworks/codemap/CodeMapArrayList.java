@@ -1,55 +1,63 @@
-/**
- * character code map {文字コードマッピング}
- */
 package com.lightspeedworks.codemap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * character code map {文字コードマッピング}
+ * character code map. {文字コードマッピング}
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMapArrayList implements ICodeMap {
+	/**
+	 * not found.
+	 */
 	public static final int NOT_FOUND = -1;
-	ArrayList<Integer> list;
+	/**
+	 * list.
+	 */
+	List<Integer> list = new ArrayList<Integer>();
 
 	/**
-	 * creates character code mapping table {文字コードマッピングテーブル作成}
+	 * creates character code mapping table. {文字コードマッピングテーブル作成}
 	 */
 	public CodeMapArrayList() {
-		list = new ArrayList<Integer>();
 	}
 
 	/**
-	 * creates character code mapping table {文字コードマッピングテーブル作成}
+	 * creates character code mapping table. {文字コードマッピングテーブル作成}
+	 *
+	 * @param size
+	 *            int
+	 *
+	 * @returns CodeMap
 	 */
 	public CodeMapArrayList(int size) {
 		list = new ArrayList<Integer>(size);
 	}
 
 	/**
-	 * deletes character code mapping table {文字コードマッピングテーブル削除}
+	 * deletes character code mapping table. {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
 		list.clear();
 	}
 
 	/**
-	 * sets value to character code mapping table {文字コードマッピングに値を設定}
+	 * sets value to character code mapping table. {文字コードマッピングに値を設定}
 	 *
 	 * @param index
 	 *            integer index {整数インデックス}
 	 * @param value
 	 *            integer value {整数値}
+	 * @return CodeMap
 	 */
 	public CodeMapArrayList set(int index, int value) {
 		if (index < 0)
 			throw new IndexOutOfBoundsException("index = " + index);
 		int n = list.size();
-		if (index < n) {
+		if (index < n)
 			list.set(index, value);
-		}
 		else {
 			for (int i = n; i < index; ++i)
 				list.add(NOT_FOUND);
@@ -59,7 +67,7 @@ public class CodeMapArrayList implements ICodeMap {
 	}
 
 	/**
-	 * gets value from character code mapping table {文字コードマッピングの値を取得}
+	 * gets value from character code mapping table. {文字コードマッピングの値を取得}
 	 *
 	 * @param index
 	 *            integer index {整数インデックス}

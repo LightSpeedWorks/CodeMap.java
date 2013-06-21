@@ -1,20 +1,28 @@
-/**
- * character code map {文字コードマッピング}
- */
 package com.lightspeedworks.codemap;
 
 /**
- * character code map {文字コードマッピング}
+ * character code map. {文字コードマッピング}
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
+ *
+ * @param <T> type
  */
 public class CodeMapT4<T> implements ICodeMap {
+	/**
+	 * not found.
+	 */
 	public static final int NOT_FOUND = -1;
+	/**
+	 * max index.
+	 */
 	static final int MAX_INDEX = 0x100;
+	/**
+	 * map.
+	 */
 	T[][][][] map;
 
 	/**
-	 * creates character code mapping table {文字コードマッピングテーブル作成}
+	 * creates character code mapping table. {文字コードマッピングテーブル作成}
 	 */
 	@SuppressWarnings("unchecked")
 	public CodeMapT4() {
@@ -24,7 +32,7 @@ public class CodeMapT4<T> implements ICodeMap {
 	}
 
 	/**
-	 * deletes character code mapping table {文字コードマッピングテーブル削除}
+	 * deletes character code mapping table. {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
 		for (int i0 = 0; i0 < MAX_INDEX; ++i0) {
@@ -50,12 +58,13 @@ public class CodeMapT4<T> implements ICodeMap {
 	}
 
 	/**
-	 * sets value to character code mapping table {文字コードマッピングに値を設定}
+	 * sets value to character code mapping table. {文字コードマッピングに値を設定}
 	 *
 	 * @param index
 	 *            integer index {整数インデックス}
 	 * @param value
 	 *            integer value {整数値}
+	 * @return CodeMap
 	 */
 	@SuppressWarnings("unchecked")
 	public CodeMapT4<T> set(int index, int value) {
@@ -93,7 +102,7 @@ public class CodeMapT4<T> implements ICodeMap {
 	}
 
 	/**
-	 * gets value from character code mapping table {文字コードマッピングの値を取得}
+	 * gets value from character code mapping table. {文字コードマッピングの値を取得}
 	 *
 	 * @param index
 	 *            integer index {整数インデックス}

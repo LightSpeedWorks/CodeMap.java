@@ -1,23 +1,26 @@
-/**
- * character code map {文字コードマッピング}
- */
 package com.lightspeedworks.codemap;
 
 /**
- * character code map {文字コードマッピング}
+ * character code map. {文字コードマッピング}
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMapWorkMain {
+	/**
+	 * max loop count.
+	 */
 	static final int MAX_LOOP_COUNT = 0xffff;
+	/**
+	 * max test count.
+	 */
 	static final int MAX_TEST_COUNT = 20;
 
 	/**
-	 * main
+	 * main.
 	 *
-	 * @param args
+	 * @param args String...
 	 */
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		CodeMap map = new CodeMap();
 
 		System.out.println("[0] = " + map.get(0));

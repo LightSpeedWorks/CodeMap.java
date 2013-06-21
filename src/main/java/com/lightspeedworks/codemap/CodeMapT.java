@@ -1,20 +1,40 @@
 package com.lightspeedworks.codemap;
 
 /**
- * character code map {文字コードマッピング}
+ * character code map. {文字コードマッピング}
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
+ *
+ * @param <T> type
  */
 public class CodeMapT<T> {
+	/**
+	 * not found.
+	 */
 	public static final Object NOT_FOUND = null;
+	/**
+	 * max index 0: zero.
+	 */
 	static final int MAX_INDEX_ZERO = 0x100;
+	/**
+	 * max index 1: one.
+	 */
 	static final int MAX_INDEX_ONE = 0x1000;
+	/**
+	 * max index 2: two.
+	 */
 	static final int MAX_INDEX_TWO = 0x1000;
+	/**
+	 * map.
+	 */
 	T[][][] map;
+	/**
+	 * map short cut.
+	 */
 	T[][] map10;
 
 	/**
-	 * creates character code mapping table {文字コードマッピングテーブル作成}
+	 * creates character code mapping table. {文字コードマッピングテーブル作成}
 	 */
 	@SuppressWarnings("unchecked")
 	public CodeMapT() {
@@ -28,7 +48,7 @@ public class CodeMapT<T> {
 	}
 
 	/**
-	 * deletes character code mapping table {文字コードマッピングテーブル削除}
+	 * deletes character code mapping table. {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
 		for (int i1 = 0; i1 < MAX_INDEX_ONE; ++i1) {
@@ -59,12 +79,13 @@ public class CodeMapT<T> {
 	}
 
 	/**
-	 * sets value to character code mapping table {文字コードマッピングに値を設定}
+	 * sets value to character code mapping table. {文字コードマッピングに値を設定}
 	 *
 	 * @param index
 	 *            integer index {整数インデックス}
 	 * @param value
 	 *            integer value {整数値}
+	 * @return CodeMap
 	 */
 	@SuppressWarnings("unchecked")
 	public CodeMapT<T> set(int index, T value) {
@@ -103,7 +124,7 @@ public class CodeMapT<T> {
 	}
 
 	/**
-	 * gets value from character code mapping table {文字コードマッピングの値を取得}
+	 * gets value from character code mapping table. {文字コードマッピングの値を取得}
 	 *
 	 * @param index
 	 *            integer index {整数インデックス}

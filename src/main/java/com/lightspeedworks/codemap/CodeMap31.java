@@ -1,23 +1,38 @@
-/**
- * character code map {文字コードマッピング}
- */
 package com.lightspeedworks.codemap;
 
 /**
- * character code map {文字コードマッピング}
+ * character code map. {文字コードマッピング}
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMap31 implements ICodeMap {
+	/**
+	 * not found.
+	 */
 	public static final int NOT_FOUND = -1;
+	/**
+	 * max index 0: zero.
+	 */
 	static final int MAX_INDEX_ZERO = 0x100;
+	/**
+	 * max index 1: one.
+	 */
 	static final int MAX_INDEX_ONE = 0x1000;
+	/**
+	 * max index 2: two.
+	 */
 	static final int MAX_INDEX_TWO = 0x1000;
+	/**
+	 * map.
+	 */
 	int[][][] map;
+	/**
+	 * map short cut.
+	 */
 	int[][] map10;
 
 	/**
-	 * creates character code mapping table {文字コードマッピングテーブル作成}
+	 * creates character code mapping table. {文字コードマッピングテーブル作成}
 	 */
 	public CodeMap31() {
 		map10 = new int[MAX_INDEX_ONE][];
@@ -30,7 +45,7 @@ public class CodeMap31 implements ICodeMap {
 	}
 
 	/**
-	 * deletes character code mapping table {文字コードマッピングテーブル削除}
+	 * deletes character code mapping table. {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
 		for (int i1 = 0; i1 < MAX_INDEX_ONE; ++i1) {
@@ -61,12 +76,13 @@ public class CodeMap31 implements ICodeMap {
 	}
 
 	/**
-	 * sets value to character code mapping table {文字コードマッピングに値を設定}
+	 * sets value to character code mapping table. {文字コードマッピングに値を設定}
 	 *
 	 * @param index
 	 *            integer index {整数インデックス}
 	 * @param value
 	 *            integer value {整数値}
+	 * @return CodeMap
 	 */
 	public CodeMap31 set(int index, int value) {
 		int i0 = index >>> 24;
@@ -104,7 +120,7 @@ public class CodeMap31 implements ICodeMap {
 	}
 
 	/**
-	 * gets value from character code mapping table {文字コードマッピングの値を取得}
+	 * gets value from character code mapping table. {文字コードマッピングの値を取得}
 	 *
 	 * @param index
 	 *            integer index {整数インデックス}

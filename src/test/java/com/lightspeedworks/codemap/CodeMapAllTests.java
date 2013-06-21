@@ -8,61 +8,42 @@ import java.util.HashMap;
 import java.util.TreeMap;
 
 /**
- * character code map {文字コードマッピング}
+ * character code map. {文字コードマッピング}
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMapAllTests {
-	static final int MAX_LOOP_COUNT = 0x10ffff; //0x10ffff;
+	/**
+	 * max loop count.
+	 */
+	static final int MAX_LOOP_COUNT = 0x10ffff; // 0x10ffff;
+	/**
+	 * max test count.
+	 */
 	static final int MAX_TEST_COUNT = 20;
 
 	/**
-	 * main
+	 * main.
 	 *
 	 * @param args
+	 *            String...
 	 */
-	public static void main(String[] args) {
-		ICodeMap[] maps = {
-				new CodeMap(),
-				new CodeMap31(),
-				new CodeMap3(),
-				new CodeMap42(),
-				new CodeMap4(),
-				new CodeMap2(),
-				new CodeMap8(),
-				new CodeMapT4<Integer>(),
-				new CodeMapArrayList(),
-				new CodeMapArrayList(0x10000),
-				new CodeMapL<ArrayList<Integer>>(new ArrayList<Integer>()),
-				new CodeMapL<ArrayList<Integer>>(
-						new ArrayList<Integer>(0x10000)),
-				new CodeMapHashMap(),
-				new CodeMapM<HashMap<Integer, Integer>>(
-						new HashMap<Integer, Integer>()),
-				new CodeMapM<TreeMap<Integer, Integer>>(
-						new TreeMap<Integer, Integer>()) };
-		String[] titles = {
-				"CodeMap",
-				"CodeMap31",
-				"CodeMap3",
-				"CodeMap42",
-				"CodeMap4",
-				"CodeMap2",
-				"CodeMap8",
-				"CodeMapT<Integer>",
-				"CodeMapArrayList",
-				"CodeMapArrayList(0x10000)",
-				"CodeMapL<ArrayList<Integer>>",
-				"CodeMapL<ArrayList<Integer>>(0x10000)",
-				"CodeMapHashMap",
-				"CodeMapM<HashMap<Integer, Integer>>",
+	public static void main(String... args) {
+		ICodeMap[] maps = { new CodeMap(), new CodeMap31(), new CodeMap3(), new CodeMap42(), new CodeMap4(),
+				new CodeMap2(), new CodeMap8(), new CodeMapT4<Integer>(), new CodeMapArrayList(),
+				new CodeMapArrayList(0x10000), new CodeMapL<ArrayList<Integer>>(new ArrayList<Integer>()),
+				new CodeMapL<ArrayList<Integer>>(new ArrayList<Integer>(0x10000)), new CodeMapHashMap(),
+				new CodeMapM<HashMap<Integer, Integer>>(new HashMap<Integer, Integer>()),
+				new CodeMapM<TreeMap<Integer, Integer>>(new TreeMap<Integer, Integer>()) };
+		String[] titles = { "CodeMap", "CodeMap31", "CodeMap3", "CodeMap42", "CodeMap4", "CodeMap2", "CodeMap8",
+				"CodeMapT<Integer>", "CodeMapArrayList", "CodeMapArrayList(0x10000)", "CodeMapL<ArrayList<Integer>>",
+				"CodeMapL<ArrayList<Integer>>(0x10000)", "CodeMapHashMap", "CodeMapM<HashMap<Integer, Integer>>",
 				"CodeMapM<TreeMap<Integer, Integer>>" };
-		int loopCounts[] = { MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
-				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
-				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
+		int[] loopCounts = { MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
+				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
 				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT };
-		boolean enables[] = { true, true, true, true, true, false, false, false,
-				false, false, false, false, false, false, false };
+		boolean[] enables = { true, true, true, true, true, false, false, false, false, false, false, false, false,
+				false, false };
 
 		System.out.println(maps.length);
 		System.out.println(titles.length);
@@ -97,10 +78,19 @@ public class CodeMapAllTests {
 		System.out.println("### end ###");
 	}
 
+	/**
+	 * test.
+	 *
+	 * @param map
+	 *            ICodeMap
+	 * @param title
+	 *            String
+	 * @param loopCount
+	 *            int
+	 */
 	public static void test(ICodeMap map, String title, int loopCount) {
 		// System.out.println("======================================================================");
-		System.out
-				.print(String.format("### %s ### (0x%x) ", title, loopCount));
+		System.out.print(String.format("### %s ### (0x%x) ", title, loopCount));
 		int n;
 		n = map.get(0);
 		// System.out.println("[0] = " + n);
@@ -146,12 +136,11 @@ public class CodeMapAllTests {
 			// System.out.println(String.format("%2d: %6.3f", k,
 			// deltaTime / 1000.0));
 		}
-		//System.out.println("----------------------------------------------------------------------");
-		System.out.print(String.format("avg %7.4f", sum / 1000.0
-				/ MAX_TEST_COUNT));
+		// System.out.println("----------------------------------------------------------------------");
+		System.out.print(String.format("avg %7.4f", sum / 1000.0 / MAX_TEST_COUNT));
 		System.out.print(String.format("  min %6.3f", minTime / 1000.0));
 		System.out.println(String.format("  max %6.3f", maxTime / 1000.0));
-		//System.out.println("======================================================================");
+		// System.out.println("======================================================================");
 
 		map.clear();
 		System.gc();
