@@ -19,29 +19,20 @@ public class CodeMap2 implements ICodeMap {
 	/**
 	 * map.
 	 */
-	int[][] map;
+	final int[][] map = new int[MAX_INDEX][];
 
 	/**
 	 * creates character code mapping table. {文字コードマッピングテーブル作成}
 	 */
 	public CodeMap2() {
-		map = new int[MAX_INDEX][];
-		for (int i = 0; i < MAX_INDEX; ++i)
-			map[i] = null;
 	}
 
 	/**
 	 * deletes character code mapping table. {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		for (int i0 = 0; i0 < MAX_INDEX; ++i0) {
-			int[] map1 = map[i0];
-			if (map1 == null)
-				continue;
-			for (int i1 = 0; i1 < MAX_INDEX; ++i1)
-				map1[i1] = NOT_FOUND;
+		for (int i0 = 0; i0 < MAX_INDEX; ++i0)
 			map[i0] = null;
-		}
 	}
 
 	/**
@@ -53,8 +44,8 @@ public class CodeMap2 implements ICodeMap {
 	 *            integer value {整数値}
 	 * @return CodeMap
 	 */
-	public CodeMap2 set(int index, int value) {
-		int i0 = index >>> 16;
+	public CodeMap2 set(final int index, final int value) {
+		final int i0 = index >>> 16;
 		int[] map1 = map[i0];
 		if (map1 == null) {
 			map1 = map[i0] = new int[MAX_INDEX];
@@ -62,8 +53,9 @@ public class CodeMap2 implements ICodeMap {
 				map1[i] = NOT_FOUND;
 		}
 
-		int i1 = index & 0xffff;
-		map1[i1] = value;
+		// final int i1 = index & 0xffff;
+		// map1[i1] = value;
+		map1[index & 0xffff] = value;
 		return this;
 	}
 
@@ -74,13 +66,13 @@ public class CodeMap2 implements ICodeMap {
 	 *            integer index {整数インデックス}
 	 * @return integer value {整数値}
 	 */
-	public int get(int index) {
-		int i0 = index >>> 16;
-		int[] map1 = map[i0];
+	public int get(final int index) {
+		// final int i0 = index >>> 16;
+		final int[] map1 = map[index >>> 16];
 		if (map1 == null)
 			return NOT_FOUND;
 
-		int i1 = index & 0xffff;
-		return map1[i1];
+		// final int i1 = index & 0xffff;
+		return map1[index & 0xffff];
 	}
 }

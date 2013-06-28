@@ -19,59 +19,28 @@ public class CodeMap42 implements ICodeMap {
 	/**
 	 * map.
 	 */
-	int[][][][] map;
+	final int[][][][] map = new int[MAX_INDEX][][][];
 
 	/**
 	 * map short cut.
 	 */
-	int[][] map200;
+	final int[][] map200 = new int[MAX_INDEX][];
 
 	/**
 	 * creates character code mapping table. {文字コードマッピングテーブル作成}
 	 */
 	public CodeMap42() {
-		map200 = new int[MAX_INDEX][];
-		for (int i = 0; i < MAX_INDEX; ++i)
-			map200[i] = null;
-
-		map = new int[MAX_INDEX][][][];
-		for (int i = 0; i < MAX_INDEX; ++i)
-			map[i] = null;
 	}
 
 	/**
 	 * deletes character code mapping table. {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
-			int[] map3 = map200[i2];
-			if (map3 == null)
-				continue;
-			for (int i3 = 0; i3 < MAX_INDEX; ++i3)
-				map3[i3] = NOT_FOUND;
+		for (int i2 = 0; i2 < MAX_INDEX; ++i2)
 			map200[i2] = null;
-		}
 
-		for (int i0 = 0; i0 < MAX_INDEX; ++i0) {
-			int[][][] map1 = map[i0];
-			if (map1 == null)
-				continue;
-			for (int i1 = 0; i1 < MAX_INDEX; ++i1) {
-				int[][] map2 = map1[i1];
-				if (map2 == null)
-					continue;
-				for (int i2 = 0; i2 < MAX_INDEX; ++i2) {
-					int[] map3 = map2[i2];
-					if (map3 == null)
-						continue;
-					for (int i3 = 0; i3 < MAX_INDEX; ++i3)
-						map3[i3] = NOT_FOUND;
-					map2[i2] = null;
-				}
-				map1[i1] = null;
-			}
+		for (int i0 = 0; i0 < MAX_INDEX; ++i0)
 			map[i0] = null;
-		}
 	}
 
 	/**
@@ -83,9 +52,9 @@ public class CodeMap42 implements ICodeMap {
 	 *            integer value {整数値}
 	 * @return CodeMap
 	 */
-	public CodeMap42 set(int index, int value) {
-		int i2 = (index >>> 8) & 0xff;
-		int i3 = index & 0xff;
+	public CodeMap42 set(final int index, final int value) {
+		final int i2 = (index >>> 8) & 0xff;
+		final int i3 = index & 0xff;
 
 		if ((index >>> 16) == 0) {
 			int[] map3 = map200[i2];
@@ -100,21 +69,15 @@ public class CodeMap42 implements ICodeMap {
 			return this;
 		}
 
-		int i0 = index >>> 24;
+		final int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
-		if (map1 == null) {
+		if (map1 == null)
 			map1 = map[i0] = new int[MAX_INDEX][][];
-			for (int i = 0; i < MAX_INDEX; ++i)
-				map1[i] = null;
-		}
 
-		int i1 = (index >>> 16) & 0xff;
+		final int i1 = (index >>> 16) & 0xff;
 		int[][] map2 = map1[i1];
-		if (map2 == null) {
+		if (map2 == null)
 			map2 = map1[i1] = new int[MAX_INDEX][];
-			for (int i = 0; i < MAX_INDEX; ++i)
-				map2[i] = null;
-		}
 
 		int[] map3 = map2[i2];
 		if (map3 == null) {
@@ -134,9 +97,9 @@ public class CodeMap42 implements ICodeMap {
 	 *            integer index {整数インデックス}
 	 * @return integer value {整数値}
 	 */
-	public int get(int index) {
-		int i2 = (index >>> 8) & 0xff;
-		int i3 = index & 0xff;
+	public int get(final int index) {
+		final int i2 = (index >>> 8) & 0xff;
+		final int i3 = index & 0xff;
 
 		if ((index >>> 16) == 0) {
 			int[] map3 = map200[i2];
@@ -146,12 +109,12 @@ public class CodeMap42 implements ICodeMap {
 			return map3[i3];
 		}
 
-		int i0 = index >>> 24;
+		final int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
 		if (map1 == null)
 			return NOT_FOUND;
 
-		int i1 = (index >>> 16) & 0xff;
+		final int i1 = (index >>> 16) & 0xff;
 		int[][] map2 = map1[i1];
 		if (map2 == null)
 			return NOT_FOUND;
