@@ -9,10 +9,11 @@ import java.util.List;
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMapArrayList implements ICodeMap {
-	/**
-	 * not found.
-	 */
-	public static final int NOT_FOUND = -1;
+	// /**
+	// * not found.
+	// */
+	// public static final int NOT_FOUND = Integer.MIN_VALUE;
+
 	/**
 	 * list.
 	 */

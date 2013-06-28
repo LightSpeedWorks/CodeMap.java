@@ -11,10 +11,11 @@ import java.util.List;
  *            List
  */
 public class CodeMapL<L extends List<Integer>> implements ICodeMap {
-	/**
-	 * not found.
-	 */
-	public static final int NOT_FOUND = -1;
+	// /**
+	// * not found.
+	// */
+	// public static final int NOT_FOUND = Integer.MIN_VALUE;
+
 	/**
 	 * list.
 	 */

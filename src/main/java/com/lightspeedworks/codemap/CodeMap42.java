@@ -6,18 +6,21 @@ package com.lightspeedworks.codemap;
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMap42 implements ICodeMap {
-	/**
-	 * not found.
-	 */
-	public static final int NOT_FOUND = -1;
+	// /**
+	// * not found.
+	// */
+	// public static final int NOT_FOUND = Integer.MIN_VALUE;
+
 	/**
 	 * max index.
 	 */
 	static final int MAX_INDEX = 0x100;
+
 	/**
 	 * map.
 	 */
 	int[][][][] map;
+
 	/**
 	 * map short cut.
 	 */

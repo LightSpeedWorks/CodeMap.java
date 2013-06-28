@@ -7,6 +7,11 @@ package com.lightspeedworks.codemap;
  */
 public interface ICodeMap {
 	/**
+	 * not found.
+	 */
+	int NOT_FOUND = Integer.MIN_VALUE;
+
+	/**
 	 * deletes character code mapping table. {文字コードマッピングテーブル削除}
 	 */
 	void clear();

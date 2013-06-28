@@ -11,10 +11,11 @@ import java.util.Map;
  *            map
  */
 public class CodeMapM<M extends Map<Integer, Integer>> implements ICodeMap {
-	/**
-	 * not found.
-	 */
-	public static final int NOT_FOUND = -1;
+	// /**
+	// * not found.
+	// */
+	// public static final int NOT_FOUND = Integer.MIN_VALUE;
+
 	/**
 	 * map.
 	 */

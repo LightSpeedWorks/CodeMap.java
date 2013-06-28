@@ -5,9 +5,8 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: Generic Checks
-    Description: 
-Generic Checks コーディング規約チェックの Checkstyle 構成です。
+    Checkstyle-Configuration: Java Checkstyle
+    Description: Java Checkstyle
 -->
 <module name="Checker">
   <property name="severity" value="warning"/>
@@ -27,11 +26,17 @@ Generic Checks コーディング規約チェックの Checkstyle 構成です�
     <module name="ParameterName"/>
     <module name="StaticVariableName"/>
     <module name="TypeName"/>
-    <module name="AvoidStarImport"/>
+    <module name="AvoidStarImport">
+      <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
     <module name="IllegalImport"/>
     <module name="RedundantImport"/>
     <module name="UnusedImports"/>
-    <module name="MethodLength"/>
+    <module name="MethodLength">
+      <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
     <module name="ParameterNumber"/>
     <module name="LineLength">
       <property name="max" value="132"/>
@@ -66,11 +71,18 @@ Generic Checks コーディング規約チェックの Checkstyle 構成です�
     <module name="DoubleCheckedLocking"/>
     <module name="EmptyStatement"/>
     <module name="EqualsHashCode"/>
-    <module name="HiddenField"/>
+    <module name="HiddenField">
+      <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
     <module name="IllegalInstantiation"/>
-    <module name="InnerAssignment"/>
+    <module name="InnerAssignment">
+      <property name="tokens" value="BAND_ASSIGN,BOR_ASSIGN,BSR_ASSIGN,BXOR_ASSIGN,DIV_ASSIGN,MINUS_ASSIGN,MOD_ASSIGN,PLUS_ASSIGN,SL_ASSIGN,SR_ASSIGN,STAR_ASSIGN"/>
+    </module>
     <module name="MagicNumber">
+      <property name="severity" value="ignore"/>
       <property name="ignoreNumbers" value="-1, 0, 1, 2, 3"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="MissingSwitchDefault"/>
     <module name="RedundantThrows">
@@ -99,6 +111,9 @@ Generic Checks コーディング規約チェックの Checkstyle 構成です�
     </module>
     <module name="TodoComment"/>
     <module name="UpperEll"/>
+    <module name="InnerAssignment">
+      <property name="tokens" value="BAND_ASSIGN,BOR_ASSIGN,BSR_ASSIGN,BXOR_ASSIGN,DIV_ASSIGN,MINUS_ASSIGN,MOD_ASSIGN,PLUS_ASSIGN,SL_ASSIGN,SR_ASSIGN,STAR_ASSIGN"/>
+    </module>
   </module>
   <module name="JavadocPackage">
     <property name="severity" value="ignore"/>

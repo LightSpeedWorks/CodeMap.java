@@ -9,7 +9,8 @@ public class CodeMapWorkMain {
 	/**
 	 * max loop count.
 	 */
-	static final int MAX_LOOP_COUNT = 0xffff;
+	static final int MAX_LOOP_COUNT = 0x110000;
+
 	/**
 	 * max test count.
 	 */
@@ -18,7 +19,8 @@ public class CodeMapWorkMain {
 	/**
 	 * main.
 	 *
-	 * @param args String...
+	 * @param args
+	 *            String...
 	 */
 	public static void main(String... args) {
 		CodeMap map = new CodeMap();
@@ -31,23 +33,28 @@ public class CodeMapWorkMain {
 		for (int k = 0; k < MAX_TEST_COUNT; ++k) {
 			long startTime = System.currentTimeMillis();
 
-			for (int i = 0; i <= MAX_LOOP_COUNT; ++i)
+			for (int i = 0; i < MAX_LOOP_COUNT; ++i)
 				map.set(i, i);
-			for (int i = 0; i <= MAX_LOOP_COUNT; ++i)
-				if (i != map.get(i)) {
+			for (int i = 0; i < MAX_LOOP_COUNT; ++i)
+				if (i != map.get(i))
 					throw new Error("WRONG DATA");
-				}
-			// map.delete();
-			for (int i = 0; i <= MAX_LOOP_COUNT; ++i)
+			for (int i = MAX_LOOP_COUNT - 1; i >= 0; --i)
+				if (i != map.get(i))
+					throw new Error("WRONG DATA");
+
+			map.clear();
+
+			for (int i = MAX_LOOP_COUNT - 1; i >= 0; --i)
 				map.set(i, i);
-			for (int i = 0; i <= MAX_LOOP_COUNT; ++i)
-				if (i != map.get(i)) {
+			for (int i = MAX_LOOP_COUNT - 1; i >= 0; --i)
+				if (i != map.get(i))
 					throw new Error("WRONG DATA");
-				}
+			for (int i = 0; i < MAX_LOOP_COUNT; ++i)
+				if (i != map.get(i))
+					throw new Error("WRONG DATA");
 
 			long deltaTime = System.currentTimeMillis() - startTime;
-			System.out.println(String.format("%02d: %6.3f", k,
-					deltaTime / 1000.0));
+			System.out.println(String.format("%02d: %6.3f", k, deltaTime / 1000.0));
 		}
 	}
 }

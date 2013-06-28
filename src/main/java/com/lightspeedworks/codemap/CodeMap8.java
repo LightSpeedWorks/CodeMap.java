@@ -1,6 +1,3 @@
-/**
- * character code map {文字コードマッピング}
- */
 package com.lightspeedworks.codemap;
 
 /**
@@ -9,14 +6,16 @@ package com.lightspeedworks.codemap;
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
 public class CodeMap8 implements ICodeMap {
-	/**
-	 * not found.
-	 */
-	public static final int NOT_FOUND = -1;
+	// /**
+	// * not found.
+	// */
+	// public static final int NOT_FOUND = Integer.MIN_VALUE;
+
 	/**
 	 * max index.
 	 */
 	static final int MAX_INDEX = 0x10;
+
 	/**
 	 * map.
 	 */
