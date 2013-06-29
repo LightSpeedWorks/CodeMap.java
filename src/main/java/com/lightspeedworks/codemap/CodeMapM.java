@@ -19,7 +19,7 @@ public class CodeMapM<M extends Map<Integer, Integer>> implements ICodeMap {
 	/**
 	 * map.
 	 */
-	M map;
+	final M map;
 
 	/**
 	 * creates character code mapping table. {文字コードマッピングテーブル作成}
@@ -47,7 +47,7 @@ public class CodeMapM<M extends Map<Integer, Integer>> implements ICodeMap {
 	 *            integer value {整数値}
 	 * @return CodeMap
 	 */
-	public CodeMapM<M> set(int index, int value) {
+	public CodeMapM<M> set(final int index, final int value) {
 		map.put(index, value);
 		return this;
 	}
@@ -59,11 +59,14 @@ public class CodeMapM<M extends Map<Integer, Integer>> implements ICodeMap {
 	 *            integer index {整数インデックス}
 	 * @return integer value {整数値}
 	 */
-	public int get(int index) {
+	public int get(final int index) {
 		// if (index < 0 || index >= list.size())
 		// throw new IndexOutOfBoundsException("");
 		try {
-			return map.get(index);
+			Integer result = map.get(index);
+			if (result == null)
+				return NOT_FOUND;
+			return result;
 		} catch (Exception e) {
 			return NOT_FOUND;
 		}

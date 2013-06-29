@@ -20,7 +20,7 @@ public class CodeMapAllTests {
 	/**
 	 * max test count.
 	 */
-	static final int MAX_TEST_COUNT = 20;
+	static final int MAX_TEST_COUNT = 30;
 
 	/**
 	 * main.
@@ -29,21 +29,21 @@ public class CodeMapAllTests {
 	 *            String...
 	 */
 	public static void main(final String... args) {
-		final ICodeMap[] maps = { new CodeMap31(), new CodeMap3(), new CodeMap42(), new CodeMap4(), new CodeMap2(),
-				new CodeMap8(), new CodeMapT4<Integer>(), new CodeMapArrayList(), new CodeMapArrayList(0x10000),
-				new CodeMapL<ArrayList<Integer>>(new ArrayList<Integer>()),
-				new CodeMapL<ArrayList<Integer>>(new ArrayList<Integer>(0x10000)), new CodeMapHashMap(),
+		final ICodeMap[] maps = { new CodeMap31(), new CodeMap3y(), new CodeMap3x(), new CodeMap3(), new CodeMap42(),
+				new CodeMap4(), new CodeMap2(), new CodeMap8(), new CodeMapT4<Integer>(), new CodeMapArrayList(),
+				new CodeMapArrayList(0x100), new CodeMapL<ArrayList<Integer>>(new ArrayList<Integer>()),
+				new CodeMapL<ArrayList<Integer>>(new ArrayList<Integer>(0x100)), new CodeMapHashMap(),
 				new CodeMapM<HashMap<Integer, Integer>>(new HashMap<Integer, Integer>()),
 				new CodeMapM<TreeMap<Integer, Integer>>(new TreeMap<Integer, Integer>()) };
-		final String[] titles = { "CodeMap31", "CodeMap3", "CodeMap42", "CodeMap4", "CodeMap2", "CodeMap8",
-				"CodeMapT<Integer>", "CodeMapArrayList", "CodeMapArrayList(0x10000)", "CodeMapL<ArrayList<Integer>>",
-				"CodeMapL<ArrayList<Integer>>(0x10000)", "CodeMapHashMap", "CodeMapM<HashMap<Integer, Integer>>",
-				"CodeMapM<TreeMap<Integer, Integer>>" };
-		final int[] loopCounts = { MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
+		final String[] titles = { "CodeMap31", "CodeMap3y", "CodeMap3x", "CodeMap3", "CodeMap42", "CodeMap4",
+				"CodeMap2", "CodeMap8", "CodeMapT<Integer>", "CodeMapArrayList", "CodeMapArrayList(0x110000)",
+				"CodeMapL<ArrayList<Integer>>", "CodeMapL<ArrayList<Integer>>(0x110000)", "CodeMapHashMap",
+				"CodeMapM<HashMap<Integer, Integer>>", "CodeMapM<TreeMap<Integer, Integer>>" };
+		final int[] loopCounts = { MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
 				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT,
-				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT };
-		final boolean[] enables = { true, false, true, true, true, false, false, false, false, false, false, false, false,
-				false };
+				MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT, MAX_LOOP_COUNT };
+		final boolean[] enables = { true, true, true, false, true, false, false, false, false, false, false, false, false,
+				false, false, false };
 
 		if (maps.length != titles.length || maps.length != loopCounts.length || maps.length != enables.length)
 			throw new Error("配列の要素数が一致しません!!!");
@@ -81,9 +81,17 @@ public class CodeMapAllTests {
 		System.out.print(String.format("### %-10s### (0x%06x) ", title, loopCount));
 		int n;
 		n = map.get(0);
+		if (n != ICodeMap.NOT_FOUND)
+			throw new Error("WRONG DATA [0]=" + n);
 		map.set(0, 0);
 		n = map.get(0);
 		map.set(0, n);
+
+		n = map.get(0x12345678);
+		if (n != ICodeMap.NOT_FOUND)
+			throw new Error("WRONG DATA [0x12345678]=" + n);
+		map.set(0x12345678, 0);
+		n = map.get(0x12345678);
 		map.clear();
 
 		long sum = 0;
@@ -134,5 +142,10 @@ public class CodeMapAllTests {
 
 		map.clear();
 		System.gc();
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

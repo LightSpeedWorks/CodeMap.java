@@ -5,16 +5,16 @@ package com.lightspeedworks.codemap;
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMap {
-	/**
-	 * not found.
-	 */
-	public static final int NOT_FOUND = Integer.MIN_VALUE;
+public class CodeMap3x implements ICodeMap {
+	// /**
+	// * not found.
+	// */
+	// public static final int NOT_FOUND = Integer.MIN_VALUE;
 
 	/**
 	 * max index 0: zero.
 	 */
-	static final int MAX_INDEX_ZERO = 0x200;
+	static final int MAX_INDEX_ZERO = 0x400;
 
 	/**
 	 * max index 1: one.
@@ -24,7 +24,7 @@ public class CodeMap {
 	/**
 	 * max index 2: two.
 	 */
-	static final int MAX_INDEX_TWO = 0x1000;
+	static final int MAX_INDEX_TWO = 0x800;
 
 	/**
 	 * map.
@@ -55,8 +55,8 @@ public class CodeMap {
 	 *            integer value {整数値}
 	 * @return CodeMap
 	 */
-	public CodeMap set(final int index, final int value) {
-		final int i0 = index >>> 23;
+	public CodeMap3x set(final int index, final int value) {
+		final int i0 = index >>> 22;
 		int[][] map1;
 		if (i0 != 0) {
 			if (map == null)
@@ -68,14 +68,15 @@ public class CodeMap {
 		} else
 			map1 = map10;
 
-		final int i1 = (index >>> 12) & 0x7ff;
+		final int i1 = (index >>> 11) & 0x7ff;
 		int[] map2 = map1[i1];
 		if (map2 == null) {
 			map1[i1] = map2 = new int[MAX_INDEX_TWO];
 			for (int i = 0; i < MAX_INDEX_TWO; ++i)
 				map2[i] = NOT_FOUND;
 		}
-		map2[index & 0xfff] = value;
+
+		map2[index & 0x7ff] = value;
 		return this;
 	}
 
@@ -87,7 +88,7 @@ public class CodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(final int index) {
-		final int i0 = index >>> 23;
+		final int i0 = index >>> 22;
 		int[][] map1;
 
 		if (i0 != 0) {
@@ -100,10 +101,10 @@ public class CodeMap {
 		} else
 			map1 = map10;
 
-		int[] map2 = map1[(index >>> 12) & 0x7ff];
+		int[] map2 = map1[(index >>> 11) & 0x7ff];
 		if (map2 == null)
 			return NOT_FOUND;
 
-		return map2[index & 0xfff];
+		return map2[index & 0x7ff];
 	}
 }

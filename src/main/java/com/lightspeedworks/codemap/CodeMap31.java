@@ -40,8 +40,8 @@ public class CodeMap31 implements ICodeMap {
 	 * deletes character code mapping table. {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		for (int i1 = 0; i1 < MAX_INDEX_ONE; ++i1)
-			map10[i1] = null;
+		for (int i = 0; i < MAX_INDEX_ONE; ++i)
+			map10[i] = null;
 
 		map = null;
 	}
@@ -57,34 +57,26 @@ public class CodeMap31 implements ICodeMap {
 	 */
 	public CodeMap31 set(final int index, final int value) {
 		final int i0 = index >>> 24;
+		int[][] map1;
+		if (i0 != 0) {
+			if (map == null)
+				map = new int[MAX_INDEX_ZERO][][];
+
+			map1 = map[i0];
+			if (map1 == null)
+				map[i0] = map1 = new int[MAX_INDEX_ONE][];
+		} else
+			map1 = map10;
+
 		final int i1 = (index >>> 12) & 0xfff;
-		final int i2 = index & 0xfff;
-
-		if (i0 == 0) {
-			int[] map2 = map10[i1];
-			if (map2 == null) {
-				map2 = map10[i1] = new int[MAX_INDEX_TWO];
-				for (int i = 0; i < MAX_INDEX_TWO; ++i)
-					map2[i] = NOT_FOUND;
-			}
-			map2[i2] = value;
-			return this;
-		}
-
-		if (map != null)
-			map = new int[MAX_INDEX_ZERO][][];
-
-		int[][] map1 = map[i0];
-		if (map1 == null)
-			map1 = map[i0] = new int[MAX_INDEX_ONE][];
-
 		int[] map2 = map1[i1];
 		if (map2 == null) {
-			map2 = map1[i1] = new int[MAX_INDEX_TWO];
+			map1[i1] = map2 = new int[MAX_INDEX_TWO];
 			for (int i = 0; i < MAX_INDEX_TWO; ++i)
 				map2[i] = NOT_FOUND;
 		}
-		map2[i2] = value;
+
+		map2[index & 0xfff] = value;
 		return this;
 	}
 
@@ -97,40 +89,22 @@ public class CodeMap31 implements ICodeMap {
 	 */
 	public int get(final int index) {
 		final int i0 = index >>> 24;
-		final int i1 = (index >>> 12) & 0xfff;
-		final int i2 = index & 0xfff;
+		int[][] map1;
 
-		if (i0 == 0) {
-			int[] map2 = map10[i1];
-			if (map2 == null)
+		if (i0 != 0) {
+			if (map == null)
 				return NOT_FOUND;
 
-			return map2[i2];
-		}
+			map1 = map[i0];
+			if (map1 == null)
+				return NOT_FOUND;
+		} else
+			map1 = map10;
 
-		int[][] map1 = map[i0];
-		if (map1 == null)
-			return NOT_FOUND;
-
-		int[] map2 = map1[i1];
+		int[] map2 = map1[(index >>> 12) & 0xfff];
 		if (map2 == null)
 			return NOT_FOUND;
 
-		return map2[i2];
-
-		// if (i0 == 0) {
-		// if (map10[i1] == null)
-		// return NOT_FOUND;
-		//
-		// return map10[i1][i2];
-		// }
-		//
-		// if (map[i0] == null)
-		// return NOT_FOUND;
-		//
-		// if (map[i0][i1] == null)
-		// return NOT_FOUND;
-		//
-		// return map[i0][i1][i2];
+		return map2[index & 0xfff];
 	}
 }

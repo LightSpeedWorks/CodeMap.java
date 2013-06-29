@@ -17,13 +17,7 @@ public class CodeMapHashMap implements ICodeMap {
 	/**
 	 * map.
 	 */
-	Map<Integer, Integer> map = new HashMap<Integer, Integer>();;
-
-	/**
-	 * creates character code mapping table. {文字コードマッピングテーブル作成}
-	 */
-	public CodeMapHashMap() {
-	}
+	final Map<Integer, Integer> map = new HashMap<Integer, Integer>();;
 
 	/**
 	 * deletes character code mapping table. {文字コードマッピングテーブル削除}
@@ -41,7 +35,7 @@ public class CodeMapHashMap implements ICodeMap {
 	 *            integer value {整数値}
 	 * @return CodeMap
 	 */
-	public CodeMapHashMap set(int index, int value) {
+	public CodeMapHashMap set(final int index, final int value) {
 		map.put(index, value);
 		return this;
 	}
@@ -53,9 +47,12 @@ public class CodeMapHashMap implements ICodeMap {
 	 *            integer index {整数インデックス}
 	 * @return integer value {整数値}
 	 */
-	public int get(int index) {
+	public int get(final int index) {
 		try {
-			return map.get(index);
+			Integer result = map.get(index);
+			if (result == null)
+				return NOT_FOUND;
+			return result;
 		} catch (Exception e) {
 			return NOT_FOUND;
 		}

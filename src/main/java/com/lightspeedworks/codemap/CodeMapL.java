@@ -19,7 +19,7 @@ public class CodeMapL<L extends List<Integer>> implements ICodeMap {
 	/**
 	 * list.
 	 */
-	L list;
+	final L list;
 
 	/**
 	 * creates character code mapping table. {文字コードマッピングテーブル作成}
@@ -47,10 +47,10 @@ public class CodeMapL<L extends List<Integer>> implements ICodeMap {
 	 *            integer value {整数値}
 	 * @return CodeMap
 	 */
-	public CodeMapL<L> set(int index, int value) {
+	public CodeMapL<L> set(final int index, final int value) {
 		if (index < 0)
 			throw new IndexOutOfBoundsException("index = " + index);
-		int n = list.size();
+		final int n = list.size();
 		if (index < n) {
 			list.set(index, value);
 		} else {
@@ -73,6 +73,9 @@ public class CodeMapL<L extends List<Integer>> implements ICodeMap {
 			return NOT_FOUND;
 		// if (index < 0 || index >= list.size())
 		// throw new IndexOutOfBoundsException("");
-		return list.get(index);
+		Integer result = list.get(index);
+		if (result == null)
+			return NOT_FOUND;
+		return result;
 	}
 }

@@ -5,11 +5,11 @@ package com.lightspeedworks.codemap;
  *
  * @author LightSpeedC (Kazuaki Nishizawa; 西澤 和晃)
  */
-public class CodeMap {
-	/**
+public class CodeMap3z /*implements ICodeMap*/ {
+	 /**
 	 * not found.
 	 */
-	public static final int NOT_FOUND = Integer.MIN_VALUE;
+	 public static final int NOT_FOUND = Integer.MIN_VALUE;
 
 	/**
 	 * max index 0: zero.
@@ -55,7 +55,7 @@ public class CodeMap {
 	 *            integer value {整数値}
 	 * @return CodeMap
 	 */
-	public CodeMap set(final int index, final int value) {
+	public CodeMap3z set(final int index, final int value) {
 		final int i0 = index >>> 23;
 		int[][] map1;
 		if (i0 != 0) {
@@ -75,6 +75,7 @@ public class CodeMap {
 			for (int i = 0; i < MAX_INDEX_TWO; ++i)
 				map2[i] = NOT_FOUND;
 		}
+
 		map2[index & 0xfff] = value;
 		return this;
 	}

@@ -22,17 +22,11 @@ public class CodeMap4 implements ICodeMap {
 	final int[][][][] map = new int[MAX_INDEX][][][];
 
 	/**
-	 * creates character code mapping table. {文字コードマッピングテーブル作成}
-	 */
-	public CodeMap4() {
-	}
-
-	/**
 	 * deletes character code mapping table. {文字コードマッピングテーブル削除}
 	 */
 	public void clear() {
-		for (int i0 = 0; i0 < MAX_INDEX; ++i0)
-			map[i0] = null;
+		for (int i = 0; i < MAX_INDEX; ++i)
+			map[i] = null;
 	}
 
 	/**
@@ -48,22 +42,21 @@ public class CodeMap4 implements ICodeMap {
 		final int i0 = index >>> 24;
 		int[][][] map1 = map[i0];
 		if (map1 == null)
-			map1 = map[i0] = new int[MAX_INDEX][][];
+			map[i0] = map1 = new int[MAX_INDEX][][];
 
 		final int i1 = (index >>> 16) & 0xff;
 		int[][] map2 = map1[i1];
 		if (map2 == null)
-			map2 = map1[i1] = new int[MAX_INDEX][];
+			map1[i1] = map2 = new int[MAX_INDEX][];
 
 		final int i2 = (index >>> 8) & 0xff;
 		int[] map3 = map2[i2];
 		if (map3 == null) {
-			map3 = map2[i2] = new int[MAX_INDEX];
+			map2[i2] = map3 = new int[MAX_INDEX];
 			for (int i = 0; i < MAX_INDEX; ++i)
 				map3[i] = NOT_FOUND;
 		}
 
-		// final int i3 = index & 0xff;
 		map3[index & 0xff] = value;
 		return this;
 	}
@@ -76,22 +69,18 @@ public class CodeMap4 implements ICodeMap {
 	 * @return integer value {整数値}
 	 */
 	public int get(final int index) {
-		//final int i0 = index >>> 24;
 		int[][][] map1 = map[index >>> 24];
 		if (map1 == null)
 			return NOT_FOUND;
 
-		//final int i1 = (index >>> 16) & 0xff;
 		int[][] map2 = map1[(index >>> 16) & 0xff];
 		if (map2 == null)
 			return NOT_FOUND;
 
-		//final int i2 = (index >>> 8) & 0xff;
 		int[] map3 = map2[(index >>> 8) & 0xff];
 		if (map3 == null)
 			return NOT_FOUND;
 
-		//final int i3 = index & 0xff;
 		return map3[index & 0xff];
 	}
 }
