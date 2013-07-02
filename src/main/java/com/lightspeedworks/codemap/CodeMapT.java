@@ -87,7 +87,7 @@ public class CodeMapT<T> {
 	 */
 	public T get(final int index) {
 		final int i0 = index >>> 24;
-		T[][] map1;
+		final T[][] map1;
 
 		if (i0 != 0) {
 			if (map == null)
@@ -100,7 +100,7 @@ public class CodeMapT<T> {
 			map1 = map10;
 		}
 
-		T[] map2 = map1[(index >>> 12) & 0xfff];
+		final T[] map2 = map1[(index >>> 12) & 0xfff];
 		if (map2 == null)
 			return null; // NOT_FOUND;
 

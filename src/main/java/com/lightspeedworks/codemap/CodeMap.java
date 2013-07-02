@@ -88,7 +88,7 @@ public class CodeMap {
 	 */
 	public int get(final int index) {
 		final int i0 = index >>> 23;
-		int[][] map1;
+		final int[][] map1;
 
 		if (i0 != 0) {
 			if (map == null)
@@ -100,7 +100,7 @@ public class CodeMap {
 		} else
 			map1 = map10;
 
-		int[] map2 = map1[(index >>> 12) & 0x7ff];
+		final int[] map2 = map1[(index >>> 12) & 0x7ff];
 		if (map2 == null)
 			return NOT_FOUND;
 
